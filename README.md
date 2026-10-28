@@ -11,7 +11,7 @@
 ![MRR](https://img.shields.io/badge/búsqueda%20MRR-1.00-2E7D32)
 ![Estado](https://img.shields.io/badge/estado-avance%201-FFB300)
 
-*Felix Yael · Universidad Tecmilenio · Basado en el POS [insfra-super-la-nube](https://github.com/C0z1/insfra-super-la-nube)*
+*Felix Yael · Universidad Tecmilenio · Basado en el POS `insfra-super-la-nube` (privado)*
 
 </div>
 
