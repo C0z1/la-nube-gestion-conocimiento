@@ -1,0 +1,28 @@
+Query: "how do I close the register at the end of my shift"
+  1. [0.441] D04 Cashier manual - end of shift cut (Manual)
+  2. [0.060] D01 Cashier manual - starting the shift (Manual)
+  3. [0.031] D18 Incident report - printer outage register 2 (Report)
+
+Query: "which customers owe money on credit"
+  1. [0.243] D44 Customer credit policy (Policy)
+  2. [0.206] D16 Customer credit balance report (Report)
+  3. [0.118] D29 Price list for customers - weekly offers (Sales)
+
+Query: "meat waste and yield of beef"
+  1. [0.317] D14 Shrinkage and waste report - butcher counter (Report)
+  2. [0.122] D40 Kardex movements for ground beef (Inventory)
+  3. [0.096] D34 Meat breakdown record beef quarter (Inventory)
+
+Query: "what happens if the internet goes down"
+  1. [0.246] D50 Offline operation policy (Policy)
+  2. [0.134] D09 Manual - what to do if something fails (Manual)
+
+Query: "charge with debit card terminal"
+  1. [0.309] D22 Sales ticket 000912 card payment (Sales)
+  2. [0.289] D08 Manual - card terminal Mercado Pago Point (Manual)
+  3. [0.105] D20 Card payment reconciliation report (Report)
+
+Query: "rules for keeping meat cold and clean"
+  1. [0.143] D45 Food safety and hygiene policy butcher counter (Policy)
+  2. [0.097] D49 Pricing policy and margins (Policy)
+  3. [0.091] D44 Customer credit policy (Policy)

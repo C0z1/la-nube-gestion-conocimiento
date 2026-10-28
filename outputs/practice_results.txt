@@ -1,0 +1,37 @@
+EXERCISE 1 - Top terms per category: raw counts (BoW) vs TF-IDF weight
+  Inventory BoW:    stock, products, cost, product, beef, delivery
+            TF-IDF: stock, products, product, cost, beef, delivery
+  Manual    BoW:    manual, cashier, press, cash, type, card
+            TF-IDF: manual, press, cashier, type, cash, label
+  Policy    BoW:    policy, store, cash, rules, credit, recorded
+            TF-IDF: policy, store, rules, cash, credit, closing
+  Report    BoW:    report, sales, register, percent, products, shows
+            TF-IDF: report, sales, percent, register, pm, margin
+  Sales     BoW:    customer, ticket, payment, sale, register, purchase
+            TF-IDF: customer, ticket, payment, sale, paid, card
+  Note: TF-IDF promotes more specific terms (label, margin, paid, closing) over generic ones (shows, recorded, purchase).
+
+EXERCISE 2 - Classification tests (5-fold stratified CV, accuracy mean +/- std)
+  ngrams=(1, 1)  NB alpha=0.1  0.68 +/- 0.13
+  ngrams=(1, 1)  NB alpha=0.5  0.78 +/- 0.15
+  ngrams=(1, 1)  LogReg C=1    0.84 +/- 0.10
+  ngrams=(1, 1)  LogReg C=10   0.86 +/- 0.08
+  ngrams=(1, 2)  NB alpha=0.1  0.68 +/- 0.18
+  ngrams=(1, 2)  NB alpha=0.5  0.72 +/- 0.16
+  ngrams=(1, 2)  LogReg C=1    0.84 +/- 0.05
+  ngrams=(1, 2)  LogReg C=10   0.84 +/- 0.05
+  Decision: unigrams, NB alpha=0.5 and LogReg C=10 are used in the prototype.
+
+EXERCISE 3 - Retrieval evaluation (TF-IDF + cosine similarity)
+  close the register at end of shift     top3=['D04', 'D01', 'D18']  P@3=0.33
+  customer debt and credit limit         top3=['D30', 'D16', 'D03']  P@3=1.00
+  meat cuts weight and waste             top3=['D34', 'D14', 'D28']  P@3=1.00
+  backup of the database                 top3=['D47', 'D10', 'D49']  P@3=0.67
+  returns and refunds                    top3=['D46', 'D50', 'D49']  P@3=0.33
+  supplier delivery and purchase order   top3=['D31', 'D32', 'D36']  P@3=1.00
+  card payment terminal                  top3=['D08', 'D22', 'D20']  P@3=1.00
+  low stock products to buy              top3=['D35', 'D39', 'D38']  P@3=0.33
+  Mean P@3 = 0.71   MRR = 1.00
+
+EXERCISE 4 - Corpus balance used to define the ontology document types
+  Inventory: 10, Manual: 10, Policy: 10, Report: 10, Sales: 10

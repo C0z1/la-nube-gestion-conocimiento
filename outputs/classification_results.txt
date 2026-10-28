@@ -1,0 +1,35 @@
+=== Naive Bayes (train=35, test=15) ===
+Accuracy: 0.60
+              precision    recall  f1-score   support
+
+   Inventory       0.60      1.00      0.75         3
+      Manual       1.00      0.33      0.50         3
+      Policy       0.67      0.67      0.67         3
+      Report       0.00      0.00      0.00         3
+       Sales       0.50      1.00      0.67         3
+
+    accuracy                           0.60        15
+   macro avg       0.55      0.60      0.52        15
+weighted avg       0.55      0.60      0.52        15
+
+=== Logistic Regression (train=35, test=15) ===
+Accuracy: 0.87
+              precision    recall  f1-score   support
+
+   Inventory       1.00      1.00      1.00         3
+      Manual       1.00      0.67      0.80         3
+      Policy       0.75      1.00      0.86         3
+      Report       1.00      0.67      0.80         3
+       Sales       0.75      1.00      0.86         3
+
+    accuracy                           0.87        15
+   macro avg       0.90      0.87      0.86        15
+weighted avg       0.90      0.87      0.86        15
+
+=== Classification of new documents (Logistic Regression) ===
+[Manual    0.66] Guide for the new cashier: press F12 to charge and choose the payment method on the screen.
+[Report    0.32] Weekly summary of revenue and margin per department compared with last month.
+[Sales     0.49] Ticket 001020 paid in cash: two kilos of chicken and one bottle of oil, change returned.
+[Inventory 0.68] Received 40 kg of pork from the supplier, checked against the purchase order and added to stock.
+[Policy    0.40] Employees must never share their PIN and accounts are locked after failed attempts.
+Correct on new documents: 5/5

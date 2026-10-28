@@ -1,0 +1,144 @@
+@prefix ln: <http://www.example.org/la-nube#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ln:Butcher a owl:Class ;
+    rdfs:subClassOf ln:Employee .
+
+ln:Cashier a owl:Class ;
+    rdfs:subClassOf ln:Employee .
+
+ln:D04 a ln:Manual ;
+    rdfs:label "Cashier manual - end of shift cut" ;
+    ln:describes ln:CashClosing .
+
+ln:D14 a ln:Report ;
+    rdfs:label "Shrinkage and waste report" ;
+    ln:summarizes ln:Sale .
+
+ln:D21 a ln:SalesDocument ;
+    rdfs:label "Sales ticket 000845" ;
+    ln:records ln:Sale .
+
+ln:GroundBeef a ln:MeatCut ;
+    rdfs:label "Ground beef" .
+
+ln:Manager a owl:Class ;
+    rdfs:subClassOf ln:Employee .
+
+ln:Register1 a ln:CashRegister ;
+    rdfs:label "Register 1" .
+
+ln:authors a owl:ObjectProperty ;
+    rdfs:domain ln:Employee ;
+    rdfs:range ln:Document .
+
+ln:belongsTo a owl:ObjectProperty ;
+    rdfs:domain ln:Product ;
+    rdfs:range ln:Department .
+
+ln:buys a owl:ObjectProperty ;
+    rdfs:domain ln:Customer ;
+    rdfs:range ln:Sale .
+
+ln:changesStock a owl:ObjectProperty ;
+    rdfs:domain ln:InventoryMovement ;
+    rdfs:range ln:Product .
+
+ln:cites a owl:ObjectProperty ;
+    rdfs:domain ln:Report ;
+    rdfs:range ln:CashCut .
+
+ln:closes a owl:ObjectProperty ;
+    rdfs:domain ln:CashCut ;
+    rdfs:range ln:CashRegister .
+
+ln:contains a owl:ObjectProperty ;
+    rdfs:domain ln:Sale ;
+    rdfs:range ln:Product .
+
+ln:describes a owl:ObjectProperty ;
+    rdfs:domain ln:Manual ;
+    rdfs:range ln:Process .
+
+ln:executes a owl:ObjectProperty ;
+    rdfs:domain ln:Employee ;
+    rdfs:range ln:Process .
+
+ln:operates a owl:ObjectProperty ;
+    rdfs:domain ln:Employee ;
+    rdfs:range ln:CashRegister .
+
+ln:paidWith a owl:ObjectProperty ;
+    rdfs:domain ln:Sale ;
+    rdfs:range ln:Payment .
+
+ln:recordedAt a owl:ObjectProperty ;
+    rdfs:domain ln:Sale ;
+    rdfs:range ln:CashRegister .
+
+ln:records a owl:ObjectProperty ;
+    rdfs:domain ln:SalesDocument ;
+    rdfs:range ln:Sale .
+
+ln:registers a owl:ObjectProperty ;
+    rdfs:domain ln:InventoryRecord ;
+    rdfs:range ln:InventoryMovement .
+
+ln:regulates a owl:ObjectProperty ;
+    rdfs:domain ln:Policy ;
+    rdfs:range ln:Process .
+
+ln:summarizes a owl:ObjectProperty ;
+    rdfs:domain ln:Report ;
+    rdfs:range ln:Sale .
+
+ln:supplies a owl:ObjectProperty ;
+    rdfs:domain ln:Supplier ;
+    rdfs:range ln:Product .
+
+ln:CashClosing a ln:Process ;
+    rdfs:label "End of shift cash cut" .
+
+ln:Customer a owl:Class .
+
+ln:Department a owl:Class .
+
+ln:InventoryRecord a owl:Class ;
+    rdfs:subClassOf ln:Document .
+
+ln:MeatCut a owl:Class ;
+    rdfs:subClassOf ln:Product .
+
+ln:Payment a owl:Class .
+
+ln:Policy a owl:Class ;
+    rdfs:subClassOf ln:Document .
+
+ln:Supplier a owl:Class .
+
+ln:CashCut a owl:Class .
+
+ln:InventoryMovement a owl:Class .
+
+ln:Manual a owl:Class ;
+    rdfs:subClassOf ln:Document .
+
+ln:SalesDocument a owl:Class ;
+    rdfs:subClassOf ln:Document .
+
+ln:Report a owl:Class ;
+    rdfs:subClassOf ln:Document .
+
+ln:CashRegister a owl:Class .
+
+ln:Process a owl:Class .
+
+ln:Product a owl:Class .
+
+ln:Document a owl:Class .
+
+ln:Employee a owl:Class .
+
+ln:Sale a owl:Class .
+
