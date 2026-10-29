@@ -1,0 +1,76 @@
+SEARCH COMPARISON - TF-IDF vs embeddings (WordLlama) vs hybrid
+
+A. Keyword queries (8)
+  tfidf       P@3=0.71  MRR=1.00
+    close the register at end of shift                   top3=['D04', 'D01', 'D18']  P@3=0.33  RR=1.00
+    customer debt and credit limit                       top3=['D30', 'D16', 'D03']  P@3=1.00  RR=1.00
+    meat cuts weight and waste                           top3=['D34', 'D14', 'D28']  P@3=1.00  RR=1.00
+    backup of the database                               top3=['D47', 'D10', 'D49']  P@3=0.67  RR=1.00
+    returns and refunds                                  top3=['D46', 'D50', 'D49']  P@3=0.33  RR=1.00
+    supplier delivery and purchase order                 top3=['D31', 'D32', 'D36']  P@3=1.00  RR=1.00
+    card payment terminal                                top3=['D08', 'D22', 'D20']  P@3=1.00  RR=1.00
+    low stock products to buy                            top3=['D35', 'D39', 'D38']  P@3=0.33  RR=1.00
+  embeddings  P@3=0.75  MRR=1.00
+    close the register at end of shift                   top3=['D48', 'D04', 'D01']  P@3=0.67  RR=1.00
+    customer debt and credit limit                       top3=['D44', 'D16', 'D25']  P@3=1.00  RR=1.00
+    meat cuts weight and waste                           top3=['D14', 'D34', 'D28']  P@3=1.00  RR=1.00
+    backup of the database                               top3=['D10', 'D47', 'D50']  P@3=0.67  RR=1.00
+    returns and refunds                                  top3=['D46', 'D27', 'D03']  P@3=0.67  RR=1.00
+    supplier delivery and purchase order                 top3=['D31', 'D32', 'D36']  P@3=1.00  RR=1.00
+    card payment terminal                                top3=['D08', 'D22', 'D26']  P@3=0.67  RR=1.00
+    low stock products to buy                            top3=['D35', 'D39', 'D12']  P@3=0.33  RR=1.00
+  hybrid      P@3=0.79  MRR=1.00
+    close the register at end of shift                   top3=['D04', 'D48', 'D01']  P@3=0.67  RR=1.00
+    customer debt and credit limit                       top3=['D16', 'D30', 'D44']  P@3=1.00  RR=1.00
+    meat cuts weight and waste                           top3=['D14', 'D34', 'D28']  P@3=1.00  RR=1.00
+    backup of the database                               top3=['D47', 'D10', 'D50']  P@3=0.67  RR=1.00
+    returns and refunds                                  top3=['D46', 'D27', 'D03']  P@3=0.67  RR=1.00
+    supplier delivery and purchase order                 top3=['D31', 'D32', 'D36']  P@3=1.00  RR=1.00
+    card payment terminal                                top3=['D08', 'D22', 'D20']  P@3=1.00  RR=1.00
+    low stock products to buy                            top3=['D35', 'D39', 'D12']  P@3=0.33  RR=1.00
+
+B. Everyday paraphrases (12)
+  tfidf       P@3=0.14  MRR=0.29
+    balance the till before going home                   top3=['D30', 'D16', 'D25']  P@3=0.00  RR=0.00
+    who still owes us money                              top3=['D27', 'D04', 'D48']  P@3=0.00  RR=0.00
+    spoiled products thrown away                         top3=['D15', 'D46', 'D38']  P@3=0.00  RR=0.00
+    what to do when the web connection is lost           top3=['D50', 'D49', 'D48']  P@3=0.33  RR=1.00
+    give money back to a client                          top3=['D27', 'D04', 'D48']  P@3=0.33  RR=1.00
+    pay with plastic money                               top3=['D24', 'D27', 'D04']  P@3=0.00  RR=0.00
+    keep the steak refrigerated and sanitary             top3=['D46', 'D28', 'D34']  P@3=0.00  RR=0.00
+    which items are running out                          top3=['D40', 'D39', 'D22']  P@3=0.00  RR=0.00
+    copy of the information in case the computer breaks  top3=['D47', 'D10', 'D49']  P@3=0.67  RR=1.00
+    secret number to log in                              top3=['D17', 'D01', 'D22']  P@3=0.33  RR=0.50
+    how much money we earned last month                  top3=['D27', 'D43', 'D04']  P@3=0.00  RR=0.00
+    busiest time of the day in the store                 top3=['D01', 'D50', 'D48']  P@3=0.00  RR=0.00
+  embeddings  P@3=0.42  MRR=0.69
+    balance the till before going home                   top3=['D16', 'D30', 'D25']  P@3=0.00  RR=0.00
+    who still owes us money                              top3=['D30', 'D27', 'D03']  P@3=0.67  RR=1.00
+    spoiled products thrown away                         top3=['D46', 'D32', 'D37']  P@3=0.33  RR=0.33
+    what to do when the web connection is lost           top3=['D50', 'D10', 'D09']  P@3=0.67  RR=1.00
+    give money back to a client                          top3=['D27', 'D46', 'D30']  P@3=0.67  RR=1.00
+    pay with plastic money                               top3=['D30', 'D26', 'D04']  P@3=0.33  RR=0.50
+    keep the steak refrigerated and sanitary             top3=['D45', 'D46', 'D47']  P@3=0.33  RR=1.00
+    which items are running out                          top3=['D29', 'D40', 'D09']  P@3=0.00  RR=0.00
+    copy of the information in case the computer breaks  top3=['D47', 'D10', 'D50']  P@3=0.67  RR=1.00
+    secret number to log in                              top3=['D22', 'D43', 'D01']  P@3=0.67  RR=0.50
+    how much money we earned last month                  top3=['D12', 'D26', 'D30']  P@3=0.33  RR=1.00
+    busiest time of the day in the store                 top3=['D19', 'D48', 'D11']  P@3=0.33  RR=1.00
+  hybrid      P@3=0.36  MRR=0.60
+    balance the till before going home                   top3=['D16', 'D30', 'D25']  P@3=0.00  RR=0.00
+    who still owes us money                              top3=['D27', 'D30', 'D04']  P@3=0.33  RR=0.50
+    spoiled products thrown away                         top3=['D46', 'D15', 'D37']  P@3=0.33  RR=0.33
+    what to do when the web connection is lost           top3=['D50', 'D10', 'D09']  P@3=0.67  RR=1.00
+    give money back to a client                          top3=['D27', 'D04', 'D46']  P@3=0.67  RR=1.00
+    pay with plastic money                               top3=['D04', 'D30', 'D26']  P@3=0.33  RR=0.33
+    keep the steak refrigerated and sanitary             top3=['D46', 'D45', 'D28']  P@3=0.33  RR=0.50
+    which items are running out                          top3=['D40', 'D29', 'D39']  P@3=0.00  RR=0.00
+    copy of the information in case the computer breaks  top3=['D47', 'D10', 'D50']  P@3=0.67  RR=1.00
+    secret number to log in                              top3=['D01', 'D22', 'D17']  P@3=0.33  RR=1.00
+    how much money we earned last month                  top3=['D04', 'D12', 'D26']  P@3=0.33  RR=0.50
+    busiest time of the day in the store                 top3=['D19', 'D48', 'D11']  P@3=0.33  RR=1.00
+
+SUMMARY
+                                                 tfidf            embeddings                hybrid
+  A. Keyword queries (8)           P@3 0.71 / MRR 1.00   P@3 0.75 / MRR 1.00   P@3 0.79 / MRR 1.00
+  B. Everyday paraphrases (12)     P@3 0.14 / MRR 0.29   P@3 0.42 / MRR 0.69   P@3 0.36 / MRR 0.60

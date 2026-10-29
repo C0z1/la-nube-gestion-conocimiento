@@ -38,6 +38,7 @@ flowchart LR
     C -->|Naive Bayes| C1[0.60]
     C -->|Logistic Regression| C2[✅ 0.87]
     B --> D[🔎 Búsqueda semántica<br/>coseno top-3]
+    A --> G[🧠 Embeddings<br/>WordLlama] --> D
     O[🕸️ Ontología OWL<br/>12 conceptos · 17 relaciones] -.-> D
     C2 --> E[🏷️ Etiqueta docs nuevos]
     D --> F[💬 Respuesta al cajero / dueño]
@@ -109,6 +110,25 @@ graph TD
 
 **Precisión@3 = 0.71 · MRR = 1.00** → el primer resultado siempre es relevante.
 
+### 🧠 Mejora implementada: búsqueda con embeddings
+
+TF-IDF solo encuentra documentos que **comparten palabras** con la pregunta. Si el cajero escribe *"balance the till"* en lugar de *"close the register"*, no encuentra el manual del corte. Los **embeddings** representan el significado: palabras distintas con sentido parecido quedan cerca.
+
+`prototype/embedding_search.py` usa **WordLlama** (~16 MB, CPU, sin GPU y sin internet una vez instalado), así que corre en el servidor local del súper. Tiene tres motores: `tfidf`, `embeddings` y `hybrid` (promedio de ambos).
+
+`prototype/compare_search.py` mide los tres motores con dos conjuntos de preguntas juzgadas:
+
+| Conjunto | TF-IDF (antes) | Embeddings | Híbrido |
+|---|:-:|:-:|:-:|
+| A. Palabras clave (8 preguntas) | P@3 0.71 · MRR 1.00 | P@3 0.75 · MRR 1.00 | **P@3 0.79** · MRR 1.00 |
+| B. Parafraseo cotidiano (12 preguntas) | P@3 0.14 · MRR 0.29 | **P@3 0.42 · MRR 0.69** | P@3 0.36 · MRR 0.60 |
+
+➡️ Cuando la gente pregunta **como habla**, el primer resultado relevante sube de **MRR 0.29 a 0.69** (×2.4) y la precisión de los 3 primeros **se triplica**, sin perder nada en las preguntas con palabras clave.
+
+<p align="center"><img src="outputs/search_comparison.png" width="90%" alt="TF-IDF vs embeddings vs híbrido"></p>
+
+Detalle por pregunta: `outputs/search_comparison.txt`. Aún falla en casos como *"balance the till"* y *"which items are running out"*: lo atacan el corpus en español y la expansión con la ontología.
+
 <details>
 <summary>📸 Capturas de consola</summary>
 
@@ -128,7 +148,7 @@ timeline
     title Ruta del proyecto La Nube
     ✅ Avance 1 : Empresa ficticia : Ciclo de vida : Ontología OWL : Clasificador TF-IDF : Búsqueda TF-IDF
     🔜 Fase 2 : Corpus real en español (manuales y reportes del POS) : Reentrenar y comparar modelos
-    🔜 Fase 3 : Embeddings de oraciones : Búsqueda por significado (sinónimos)
+    ✅ Fase 3 (adelantada) : Embeddings con WordLlama : Búsqueda por significado, MRR 0.29 → 0.69 en parafraseo
     🔜 Fase 4 : Expansión de consultas con la ontología : "corte de caja" ⇒ CashRegister
     🎯 Final : Clasificador conectado al panel admin : Etiquetado automático de docs nuevos
 ```
@@ -140,7 +160,7 @@ timeline
 - [x] 🔎 Búsqueda semántica básica (TF-IDF + coseno)
 - [x] 📝 Documento de avance + evidencias
 - [ ] 🇲🇽 Crecer el corpus con documentos reales del POS en español
-- [ ] 🧠 Reemplazar TF-IDF por *sentence embeddings*
+- [x] 🧠 Búsqueda con embeddings (WordLlama) + comparación contra TF-IDF
 - [ ] 🔗 Expandir búsquedas usando la ontología
 - [ ] 🖥️ Integrar el clasificador al panel de administración
 
@@ -155,6 +175,8 @@ timeline
 | 3. Ontología / grafo | `diagrams/ontology_graph.png`, `diagrams/la-nube-ontology.ttl` |
 | 4. Clasificación (TF-IDF + NB / LogReg) | `prototype/classifier.py` |
 | 5. Búsqueda semántica | `prototype/semantic_search.py` |
+| Mejora: búsqueda con embeddings | `prototype/embedding_search.py` |
+| Comparación antes / después | `prototype/compare_search.py`, `outputs/search_comparison.txt`, `outputs/search_comparison.png` |
 | 6. Documento de avance + evidencias | `Avance_Proyecto_La_Nube.docx`, `outputs/` |
 | Ejercicios de práctica (Temas 1–6) | `practice/practice_exercises.py`, `outputs/practice_results.txt` |
 | Corpus (50 docs, 5 categorías) | `data/documents.csv` |
@@ -162,7 +184,11 @@ timeline
 ## ▶️ Ejecutar
 
 ```bash
-pip install scikit-learn matplotlib networkx rdflib python-docx
+pip install scikit-learn matplotlib networkx rdflib python-docx wordllama
 python make_doc.py                                              # corre todo y regenera el .docx
-python prototype/semantic_search.py "who authorizes a refund"   # búsqueda libre
+python prototype/semantic_search.py "who authorizes a refund"   # búsqueda libre (TF-IDF)
+python prototype/embedding_search.py "who still owes us money"  # búsqueda con embeddings
+python prototype/compare_search.py                              # antes vs después (tabla + gráfica)
 ```
+
+> La primera vez, WordLlama descarga su tokenizer desde Hugging Face (unos KB); después funciona sin internet.
