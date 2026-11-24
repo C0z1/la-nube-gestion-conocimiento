@@ -103,7 +103,7 @@ To conclude: all four components work together in one deployed app, and they wer
 
 My recommendations: run a one-month pilot on register 1 and record the questions people ask; translate the corpus to Spanish and keep it updated as the POS changes; move to the stronger MiniLM model once the app runs on the store's own server; and expand searches with the ontology, so "corte de caja" also finds "cash cut".
 
-Thank you. The app is live at [app URL] — I'm happy to take questions.
+Thank you. The app is live at https://la-nube-gestion-conocimiento-oh27aiwzetkmeuk37gfncd.streamlit.app — I'm happy to take questions.
 
 ---
 

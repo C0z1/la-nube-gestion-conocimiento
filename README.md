@@ -4,7 +4,7 @@
 
 *Felix Yael · Universidad Tecmilenio · Knowledge Management project, Phase 3 (final prototype)*
 
-**Live app:** _pending deployment on Streamlit Community Cloud_
+**Live app:** https://la-nube-gestion-conocimiento-oh27aiwzetkmeuk37gfncd.streamlit.app
 
 ---
 
