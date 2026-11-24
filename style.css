@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  --navy: #13233A; --paper: #F6F7F4; --card: #FCFCFA; --line: #DCE2EA;
+  --blue: #2459B8; --orange: #B4561A; --muted: #4A5568; --soft: #B8C7D9;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+
+/* ---- base ---- */
+html, body, [data-testid="stAppViewContainer"], [data-testid="stMarkdownContainer"], button, input, textarea { font-family: var(--sans); }
+h1, h2, h3, [data-testid="stHeading"] * { font-family: var(--display) !important; letter-spacing: -0.01em; color: var(--navy); }
+[data-testid="stHeader"] { background: transparent; }
+.block-container { padding-top: 1.5rem; max-width: 1280px; }
+code { font-family: var(--mono); color: var(--blue); background: #E9EEF3; }
+
+/* ---- hero ---- */
+.hero { background: var(--navy); color: var(--paper); border-radius: 8px; padding: 2rem 2.25rem; display: flex; gap: 2rem; align-items: center; justify-content: space-between; }
+.hero > div { flex: 1 1 auto; min-width: 0; }
+.hero .eyebrow { font: 500 0.75rem/1 var(--mono); letter-spacing: 0.12em; color: var(--soft); text-transform: uppercase; margin: 0 0 0.75rem; }
+.hero h1 { font: 700 2.25rem/1.1 var(--display); color: var(--paper) !important; margin: 0 0 0.5rem; padding: 0; }
+.hero .lede { color: var(--soft); font-size: 1rem; margin: 0 0 1.25rem; max-width: 36rem; }
+.kpis { display: flex; row-gap: 0.75rem; flex-wrap: wrap; }
+.kpi { padding: 0 1.1rem 0 0; margin-right: 1.1rem; border-right: 1px solid #2C3E57; }
+.kpi:last-child { border-right: none; }
+.kpi b { display: block; font: 600 1.5rem/1.1 var(--display); color: var(--paper); }
+.kpi span { font-size: 0.8rem; color: var(--soft); }
+.engine { margin-top: 1rem; font: 400 0.75rem/1.4 var(--mono); color: var(--soft); }
+.engine i { font-style: normal; color: #8FB4F0; }
+
+/* retrieval animation: SVG image built in app.py, since st.html strips inline SVG elements */
+.net { width: 300px; height: 125px; flex: none; }
+@media (max-width: 900px) { .net { display: none; } }
+
+/* ---- tabs ---- */
+[data-baseweb="tab-list"] { gap: 1.75rem; border-bottom: 1px solid var(--line); }
+[data-baseweb="tab"] p { font: 600 0.95rem var(--sans); }
+[data-baseweb="tab-highlight"] { background: var(--blue); }
+
+/* ---- result cards ---- */
+.doc { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 6px; padding: 0.9rem 1.1rem; }
+.doc .meta { display: flex; gap: 0.6rem; align-items: center; margin-bottom: 0.35rem; }
+.doc .id { font: 500 0.78rem var(--mono); color: var(--blue); background: #E9EEF3; padding: 0.1rem 0.45rem; border-radius: 4px; }
+.doc .cat { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.doc .title { font: 600 1.02rem var(--display); color: var(--navy); }
+.doc .snip { color: var(--muted); font-size: 0.9rem; margin: 0.25rem 0 0.6rem; }
+.rel { display: flex; align-items: center; gap: 0.6rem; font: 400 0.75rem var(--mono); color: var(--muted); }
+.rel .bar { flex: 0 0 140px; height: 4px; background: #E3E8EF; border-radius: 2px; overflow: hidden; }
+.rel .bar i { display: block; height: 100%; background: var(--blue); }
+
+/* ---- chat retrieval trace ---- */
+details.trace { margin-top: 0.75rem; border-top: 1px solid var(--line); padding-top: 0.5rem; }
+details.trace summary { font: 500 0.78rem var(--mono); color: var(--muted); cursor: pointer; }
+details.trace table { font: 400 0.8rem var(--mono); margin-top: 0.5rem; border-collapse: collapse; }
+details.trace td { padding: 0.15rem 0.9rem 0.15rem 0; border: none; }
+
+/* ---- metrics & widgets ---- */
+[data-testid="stMetric"] { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 0.9rem 1rem; }
+[data-testid="stMetricValue"] { font-family: var(--display); color: var(--navy); }
+[data-testid="stSidebar"] { background: #EEF1F4; border-right: 1px solid var(--line); }
+.stButton button { border-radius: 6px; font-weight: 500; }

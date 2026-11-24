@@ -231,7 +231,7 @@ def knowledge_graph(categories=None, topics=None, focus=None, sim_threshold=0.85
 
 def graph_html(G, height="650px"):
     from pyvis.network import Network
-    net = Network(height=height, width="100%", bgcolor="#ffffff", cdn_resources="in_line")
+    net = Network(height=height, width="100%", bgcolor="#FCFCFA", cdn_resources="in_line")
     net.from_nx(G)
     net.set_options(json.dumps({"physics": {"solver": "forceAtlas2Based",
         "forceAtlas2Based": {"gravitationalConstant": -40, "springLength": 70},

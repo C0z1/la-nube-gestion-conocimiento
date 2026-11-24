@@ -1,5 +1,8 @@
 """La Nube knowledge assistant — Streamlit app. Run: streamlit run app.py"""
+import base64
+import html
 import json
+import time
 
 import pandas as pd
 import streamlit as st
@@ -21,6 +24,47 @@ ss.setdefault("viewed", [])    # opened documents, newest last
 ss.setdefault("messages", [])  # chat history
 
 
+M = json.load(open(kb.ROOT / "outputs" / "metrics.json", encoding="utf-8"))
+st.html(f"<style>{(kb.ROOT / 'style.css').read_text(encoding='utf-8')}</style>")
+
+# retrieval-path graphic: query -> documents -> topics -> answer (--d = stage of the pulse)
+NODES = {"q": (30, 75), "d1": (135, 28), "d2": (135, 75), "d3": (135, 122), "t1": (240, 50), "t2": (240, 100), "a": (330, 75)}
+EDGES = [("q", "d1", 0), ("q", "d2", 0), ("q", "d3", 0), ("d1", "t1", 1), ("d2", "t1", 1), ("d2", "t2", 1),
+         ("d3", "t2", 1), ("t1", "a", 2), ("t2", "a", 2)]
+
+
+def hero():
+    lines = "".join(f'<line class="e" x1="{NODES[a][0]}" y1="{NODES[a][1]}" x2="{NODES[b][0]}" y2="{NODES[b][1]}"/>'
+                    f'<line class="f" style="--d:{d}" x1="{NODES[a][0]}" y1="{NODES[a][1]}" x2="{NODES[b][0]}" y2="{NODES[b][1]}"/>'
+                    for a, b, d in EDGES)
+    dots = "".join(f'<circle class="{"hot" if n in ("q", "a") else "n"}" style="--d:{0 if n == "q" else 2}" '
+                   f'cx="{x}" cy="{y}" r="{8 if n in ("q", "a") else 5}"/>' for n, (x, y) in NODES.items())
+    # the pulse travels query -> documents -> topics -> answer 3 times, then rests; off with reduced motion
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150"><style>
+.e{{stroke:#8FB4F0;stroke-opacity:.28;stroke-width:1.5}}
+.f{{stroke:#E8A472;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:16 220;stroke-dashoffset:16;
+animation:flow 2.4s ease-in-out 3 both;animation-delay:calc(var(--d)*.6s)}}
+.n{{fill:#8FB4F0}} .hot{{fill:#E8A472;animation:glow 2.4s ease-in-out 3 both;animation-delay:calc(var(--d)*.6s)}}
+@keyframes flow{{0%{{stroke-dashoffset:16}}35%,100%{{stroke-dashoffset:-140}}}}
+@keyframes glow{{0%,100%{{opacity:1}}50%{{opacity:.45}}}}
+@media (prefers-reduced-motion:reduce){{.f,.hot{{animation:none}}}}
+</style><!-- run {len(ss.queries)} -->{lines}{dots}</svg>"""
+    src = "data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode()
+    c, r = M["classification"], M["retrieval"]["hybrid"]["paraphrase"]
+    kpis = [(M["corpus"]["documents"], "documents"), (f"{c['models'][c['in_app']]['macro_f1']:.2f}", "classifier macro-F1"),
+            (f"{r['MRR']:.2f}", "MRR, everyday questions")]
+    # the run counter changes the image after every query, so the pulse replays on each retrieval
+    st.html(f"""<div class="hero" data-run="{len(ss.queries)}">
+      <div><p class="eyebrow">Knowledge management system · La Nube</p>
+        <h1>Knowledge Assistant</h1>
+        <p class="lede">Semantic search, recommendations, a cited-answer chatbot and a knowledge graph over the store's manuals, reports and policies.</p>
+        <div class="kpis">{"".join(f'<div class="kpi"><b>{v}</b><span>{k}</span></div>' for v, k in kpis)}</div>
+        <p class="engine">engine <i>hybrid TF-IDF + WordLlama 16 MB</i> · classifier <i>LogReg</i> · graph <i>rdflib → NetworkX → PyVis</i> ({M["corpus"]["ontology_triples"]} triples) · CPU only</p>
+      </div>
+      <img class="net" src="{src}" alt="">
+    </div>""")
+
+
 def remember_query(q):
     if q and (not ss.queries or ss.queries[-1] != q):
         ss.queries.append(q)
@@ -40,15 +84,17 @@ def open_doc(doc_id):
 
 
 def doc_row(d, score, key):
-    c1, c2 = st.columns([5, 1])
-    c1.markdown(f"**{d['id']} · {d['title']}**  \n*{d['category']}* · {d['text'][:140]}…")
-    c2.caption(f"score {score:.2f}")
-    if c2.button("Open", key=key):
+    c1, c2 = st.columns([6, 1], vertical_alignment="center")
+    c1.html(f"""<div class="doc"><div class="meta"><span class="id">{d['id']}</span><span class="cat">{d['category']}</span></div>
+      <div class="title">{html.escape(d['title'])}</div><p class="snip">{html.escape(d['text'][:150])}…</p>
+      <div class="rel">relevance <span class="bar"><i style="width:{max(0, min(score, 1)) * 100:.0f}%"></i></span>{score:.3f}</div></div>""")
+    if c2.button("Open", key=key, use_container_width=True):
         open_doc(d["id"])
 
 
+hero()
 t_search, t_chat, t_classify, t_graph, t_metrics = st.tabs(
-    ["🔎 Search", "💬 Ask the assistant", "🏷️ Classify a document", "🕸️ Knowledge graph", "📊 Evaluation"])
+    ["Search", "Ask the assistant", "Classify", "Knowledge graph", "Evaluation"])
 
 # ---------- search ----------
 with t_search:
@@ -85,9 +131,12 @@ with t_chat:
         ss.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
+        t0 = time.perf_counter()
         answer, hits, mode = kb.chat(prompt, key)
-        src = "\n".join(f"- `{d['id']}` {d['title']} ({s:.2f})" for d, s in hits)
-        reply = f"{answer}\n\n<details><summary>Sources · {mode}</summary>\n\n{src}\n</details>"
+        ms = (time.perf_counter() - t0) * 1000
+        rows = "".join(f"<tr><td>{d['id']}</td><td>{s:.3f}</td><td>{html.escape(d['title'])}</td></tr>" for d, s in hits)
+        reply = (f"{answer}\n\n<details class='trace'><summary>retrieval trace · hybrid top-{len(hits)} · {mode} · {ms:.0f} ms"
+                 f"</summary><table>{rows}</table></details>")
         ss.messages.append({"role": "assistant", "content": reply})
         with st.chat_message("assistant"):
             st.markdown(reply, unsafe_allow_html=True)
@@ -136,7 +185,7 @@ with t_graph:
 # ---------- metrics ----------
 with t_metrics:
     st.header("System evaluation")
-    m = json.load(open(kb.ROOT / "outputs" / "metrics.json", encoding="utf-8"))
+    m = M
     st.caption(f"Generated by `evaluate.py` · {m['corpus']['documents']} documents · {m['corpus']['topics']} topics · "
                f"{m['corpus']['ontology_triples']} ontology triples")
     c = m["classification"]
@@ -178,8 +227,6 @@ with t_metrics:
 
 # ---------- sidebar: rendered last so it sees this run's searches ----------
 with st.sidebar:
-    st.title("☁️ La Nube")
-    st.caption("Knowledge assistant for a neighbourhood supermarket with a butcher counter.")
     st.subheader("Recommended for you")
     recs = kb.recommend(ss.queries, ss.viewed, k=5)
     if recs:
