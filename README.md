@@ -89,4 +89,5 @@ Optional LLM answers: create `.streamlit/secrets.toml` with `DEEPSEEK_API_KEY = 
 | `data/judgments.json` | Hand-labelled queries, related docs and Q&A |
 | `ontology/phase1.ttl` | Phase I OWL ontology (expanded at runtime; downloadable from the Graph tab) |
 | `usability/` | Test script, SUS questionnaire and scorer |
+| `presentation/speech.md` | 10-minute speech for the executive presentation |
 | `phase1/` | Phase I deliverables (report, diagrams, outputs) |
