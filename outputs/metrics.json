@@ -1,0 +1,571 @@
+{
+  "corpus": {
+    "documents": 100,
+    "categories": 5,
+    "topics": 23,
+    "ontology_triples": 548
+  },
+  "classification": {
+    "protocol": "stratified 5-fold cross-validation, 100 docs, 5 classes",
+    "labels": [
+      "Inventory",
+      "Manual",
+      "Policy",
+      "Report",
+      "Sales"
+    ],
+    "models": {
+      "naive_bayes_tfidf": {
+        "accuracy": 0.76,
+        "macro_precision": 0.768,
+        "macro_recall": 0.76,
+        "macro_f1": 0.745,
+        "per_class": {
+          "Inventory": {
+            "precision": 0.714,
+            "recall": 1.0,
+            "f1-score": 0.833
+          },
+          "Manual": {
+            "precision": 0.778,
+            "recall": 0.7,
+            "f1-score": 0.737
+          },
+          "Policy": {
+            "precision": 0.8,
+            "recall": 0.4,
+            "f1-score": 0.533
+          },
+          "Report": {
+            "precision": 0.81,
+            "recall": 0.85,
+            "f1-score": 0.829
+          },
+          "Sales": {
+            "precision": 0.739,
+            "recall": 0.85,
+            "f1-score": 0.791
+          }
+        },
+        "confusion": [
+          [
+            20,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            14,
+            1,
+            1,
+            2
+          ],
+          [
+            3,
+            3,
+            8,
+            3,
+            3
+          ],
+          [
+            1,
+            0,
+            1,
+            17,
+            1
+          ],
+          [
+            2,
+            1,
+            0,
+            0,
+            17
+          ]
+        ],
+        "errors": [
+          "D03 Cashier manual - customer credit F6: Manual -> Sales",
+          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D10 Owner manual - backups and restore: Manual -> Policy",
+          "D27 Refund of a returned product: Sales -> Manual",
+          "D29 Price list for customers - weekly offers: Sales -> Inventory",
+          "D41 Cash handling policy: Policy -> Manual",
+          "D42 Nothing is deleted policy: Policy -> Inventory",
+          "D44 Customer credit policy: Policy -> Report",
+          "D46 Returns and refunds policy: Policy -> Sales",
+          "D49 Pricing policy and margins: Policy -> Inventory",
+          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
+          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
+          "D58 Owner manual - reading the dashboard: Manual -> Report",
+          "D63 Supplier performance report: Report -> Inventory",
+          "D69 Internet outage report: Report -> Policy",
+          "D70 Customer credit collection report: Report -> Sales",
+          "D75 Quote for a party order: Sales -> Inventory",
+          "D92 Supplier payment policy: Policy -> Sales",
+          "D94 Promotions approval policy: Policy -> Report",
+          "D95 Cold chain policy: Policy -> Inventory",
+          "D96 Invoice issuing policy: Policy -> Sales",
+          "D98 Discounts and price override policy: Policy -> Manual",
+          "D99 Shift change policy: Policy -> Manual",
+          "D100 Waste and shrinkage control policy: Policy -> Report"
+        ]
+      },
+      "logreg_tfidf": {
+        "accuracy": 0.86,
+        "macro_precision": 0.867,
+        "macro_recall": 0.86,
+        "macro_f1": 0.859,
+        "per_class": {
+          "Inventory": {
+            "precision": 0.769,
+            "recall": 1.0,
+            "f1-score": 0.87
+          },
+          "Manual": {
+            "precision": 0.895,
+            "recall": 0.85,
+            "f1-score": 0.872
+          },
+          "Policy": {
+            "precision": 0.882,
+            "recall": 0.75,
+            "f1-score": 0.811
+          },
+          "Report": {
+            "precision": 0.9,
+            "recall": 0.9,
+            "f1-score": 0.9
+          },
+          "Sales": {
+            "precision": 0.889,
+            "recall": 0.8,
+            "f1-score": 0.842
+          }
+        },
+        "confusion": [
+          [
+            20,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            17,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            15,
+            2,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            18,
+            0
+          ],
+          [
+            2,
+            1,
+            1,
+            0,
+            16
+          ]
+        ],
+        "errors": [
+          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D27 Refund of a returned product: Sales -> Manual",
+          "D29 Price list for customers - weekly offers: Sales -> Inventory",
+          "D42 Nothing is deleted policy: Policy -> Inventory",
+          "D44 Customer credit policy: Policy -> Report",
+          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
+          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
+          "D63 Supplier performance report: Report -> Inventory",
+          "D69 Internet outage report: Report -> Policy",
+          "D75 Quote for a party order: Sales -> Inventory",
+          "D78 Monthly invoice for public sales: Sales -> Policy",
+          "D92 Supplier payment policy: Policy -> Sales",
+          "D99 Shift change policy: Policy -> Manual",
+          "D100 Waste and shrinkage control policy: Policy -> Report"
+        ]
+      },
+      "logreg_embeddings": {
+        "accuracy": 0.79,
+        "macro_precision": 0.793,
+        "macro_recall": 0.79,
+        "macro_f1": 0.787,
+        "per_class": {
+          "Inventory": {
+            "precision": 0.76,
+            "recall": 0.95,
+            "f1-score": 0.844
+          },
+          "Manual": {
+            "precision": 0.812,
+            "recall": 0.65,
+            "f1-score": 0.722
+          },
+          "Policy": {
+            "precision": 0.75,
+            "recall": 0.75,
+            "f1-score": 0.75
+          },
+          "Report": {
+            "precision": 0.842,
+            "recall": 0.8,
+            "f1-score": 0.821
+          },
+          "Sales": {
+            "precision": 0.8,
+            "recall": 0.8,
+            "f1-score": 0.8
+          }
+        },
+        "confusion": [
+          [
+            19,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            2,
+            13,
+            3,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            15,
+            2,
+            1
+          ],
+          [
+            2,
+            1,
+            0,
+            16,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            16
+          ]
+        ],
+        "errors": [
+          "D03 Cashier manual - customer credit F6: Manual -> Sales",
+          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D24 Weekend promotion - two for one in beverages: Sales -> Policy",
+          "D27 Refund of a returned product: Sales -> Manual",
+          "D44 Customer credit policy: Policy -> Report",
+          "D49 Pricing policy and margins: Policy -> Inventory",
+          "D53 Owner manual - creating a new user: Manual -> Policy",
+          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
+          "D55 Owner manual - changing prices: Manual -> Policy",
+          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
+          "D59 Training guide for new cashiers: Manual -> Policy",
+          "D62 Inventory value report - end of month: Report -> Inventory",
+          "D63 Supplier performance report: Report -> Inventory",
+          "D65 Employee hours and shifts report: Report -> Manual",
+          "D70 Customer credit collection report: Report -> Sales",
+          "D75 Quote for a party order: Sales -> Inventory",
+          "D76 Refund ticket for spoiled milk: Sales -> Report",
+          "D90 Stock adjustment after audit: Inventory -> Policy",
+          "D92 Supplier payment policy: Policy -> Sales",
+          "D99 Shift change policy: Policy -> Manual",
+          "D100 Waste and shrinkage control policy: Policy -> Report"
+        ]
+      },
+      "logreg_hybrid": {
+        "accuracy": 0.84,
+        "macro_precision": 0.852,
+        "macro_recall": 0.84,
+        "macro_f1": 0.84,
+        "per_class": {
+          "Inventory": {
+            "precision": 0.731,
+            "recall": 0.95,
+            "f1-score": 0.826
+          },
+          "Manual": {
+            "precision": 0.882,
+            "recall": 0.75,
+            "f1-score": 0.811
+          },
+          "Policy": {
+            "precision": 0.938,
+            "recall": 0.75,
+            "f1-score": 0.833
+          },
+          "Report": {
+            "precision": 0.9,
+            "recall": 0.9,
+            "f1-score": 0.9
+          },
+          "Sales": {
+            "precision": 0.81,
+            "recall": 0.85,
+            "f1-score": 0.829
+          }
+        },
+        "confusion": [
+          [
+            19,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            3,
+            15,
+            0,
+            0,
+            2
+          ],
+          [
+            1,
+            1,
+            15,
+            2,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            18,
+            1
+          ],
+          [
+            2,
+            1,
+            0,
+            0,
+            17
+          ]
+        ],
+        "errors": [
+          "D03 Cashier manual - customer credit F6: Manual -> Sales",
+          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D27 Refund of a returned product: Sales -> Manual",
+          "D29 Price list for customers - weekly offers: Sales -> Inventory",
+          "D44 Customer credit policy: Policy -> Report",
+          "D49 Pricing policy and margins: Policy -> Inventory",
+          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
+          "D55 Owner manual - changing prices: Manual -> Inventory",
+          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
+          "D63 Supplier performance report: Report -> Inventory",
+          "D70 Customer credit collection report: Report -> Sales",
+          "D75 Quote for a party order: Sales -> Inventory",
+          "D90 Stock adjustment after audit: Inventory -> Policy",
+          "D92 Supplier payment policy: Policy -> Sales",
+          "D99 Shift change policy: Policy -> Manual",
+          "D100 Waste and shrinkage control policy: Policy -> Report"
+        ]
+      }
+    },
+    "best": "logreg_tfidf",
+    "in_app": "logreg_tfidf"
+  },
+  "retrieval": {
+    "tfidf": {
+      "keyword": {
+        "n": 12,
+        "P@3": 0.833,
+        "R@5": 0.822,
+        "MRR": 1.0
+      },
+      "paraphrase": {
+        "n": 12,
+        "P@3": 0.222,
+        "R@5": 0.319,
+        "MRR": 0.476
+      }
+    },
+    "embeddings": {
+      "keyword": {
+        "n": 12,
+        "P@3": 0.917,
+        "R@5": 0.86,
+        "MRR": 0.917
+      },
+      "paraphrase": {
+        "n": 12,
+        "P@3": 0.444,
+        "R@5": 0.542,
+        "MRR": 0.664
+      }
+    },
+    "hybrid": {
+      "keyword": {
+        "n": 12,
+        "P@3": 0.917,
+        "R@5": 0.826,
+        "MRR": 1.0
+      },
+      "paraphrase": {
+        "n": 12,
+        "P@3": 0.5,
+        "R@5": 0.542,
+        "MRR": 0.68
+      }
+    },
+    "minilm (offline comparison)": {
+      "keyword": {
+        "n": 12,
+        "P@3": 0.944,
+        "R@5": 0.843,
+        "MRR": 1.0
+      },
+      "paraphrase": {
+        "n": 12,
+        "P@3": 0.583,
+        "R@5": 0.653,
+        "MRR": 0.807
+      }
+    }
+  },
+  "recommendation": {
+    "related_docs": {
+      "embeddings (in app)": {
+        "P@5": 0.547,
+        "nDCG@5": 0.716
+      },
+      "tfidf": {
+        "P@5": 0.547,
+        "nDCG@5": 0.709
+      },
+      "random same category": {
+        "P@5": 0.04,
+        "nDCG@5": 0.029
+      }
+    },
+    "n_seeds": 15,
+    "session_context": {
+      "n": 7,
+      "P@5 query alone": 0.457,
+      "P@5 with query history": 0.514
+    }
+  },
+  "chatbot": {
+    "n": 15,
+    "mode": "extractive (no API key during evaluation)",
+    "source_hit@3": 1.0,
+    "fact_in_answer": 0.933,
+    "out_of_scope_refused": "3/3",
+    "threshold": 0.18,
+    "min_in_scope_score": 0.317,
+    "max_out_of_scope_score": 0.119,
+    "detail": [
+      {
+        "q": "What key do I press to sell on credit?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Instructions to sell on credit. [D03] Press F6, search the customer by name or phone, confirm the credit limit and finish the sale. [D03] To change the quantity press the asterisk key and type the number. [D02]"
+      },
+      {
+        "q": "What is the maximum credit limit for a customer?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "The maximum limit is 1500 pesos. [D44] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16] Press F6, search the customer by name or phone, confirm the credit limit and finish the sale. [D03]"
+      },
+      {
+        "q": "What is the maximum cash allowed in the drawer?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "The cash in the drawer must not exceed 3000 pesos, the excess is withdrawn by the manager. [D41] At shift change the leaving cashier does the partial cut and counts the drawer with the next cashier. [D99] Cash payments to suppliers are not allowed above 2,000 pesos. [D92]"
+      },
+      {
+        "q": "How long do customers have to return a product?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Customers can return products within 24 hours with their ticket. [D46] Return of a product by a customer. [D27] Customer returned a milk carton expired yesterday. [D76]"
+      },
+      {
+        "q": "At what temperature must meat be kept?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Meat is kept below 4 degrees Celsius and the refrigerator temperature is recorded twice a day. [D45] Meat and dairy must stay below 4 degrees. [D95] Received 2 beef quarters, 118 kg total, temperature 3 degrees. [D85]"
+      },
+      {
+        "q": "What time does the store open?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Rules for opening and closing the store. [D48] The store opens at 7 am and closes at 10 pm. [D48] The server is inside the store and the registers connect through the local network. [D50]"
+      },
+      {
+        "q": "How long are old backups kept?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Old backups are kept for 30 days. [D47] Instructions to check backups. [D10] The nightly backup ran 30 of 30 days. [D66]"
+      },
+      {
+        "q": "Which key opens the cashier menu for the cash cut?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Open the cashier menu with F8 and choose cash cut. [D04] The system compares it with the expected cash and prints the cut ticket. [D04] Turn on the register, log in with your PIN, count the opening cash fund and type the amount. [D01]"
+      },
+      {
+        "q": "What happens after several failed PIN attempts?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "After several failed attempts the account is locked. [D43] The employee must change the PIN the first time they log in. [D53] The manager authorized the refund with PIN. [D76]"
+      },
+      {
+        "q": "What percentage of the beef quarter is sellable meat?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "The beef quarter yielded 72 percent sellable meat, 18 percent bones and fat and 10 percent loss. [D67] The 45 kg quarter produced steak, ground beef, ribs and bones. [D34] Stock of beef quarter increased in the system. [D85]"
+      },
+      {
+        "q": "When are suppliers paid?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Suppliers are paid by transfer on Fridays. [D92] Cash payments to suppliers are not allowed above 2,000 pesos. [D92] Sale paid with mixed payment. [D26]"
+      },
+      {
+        "q": "What is the minimum margin for a promotion?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Each promotion needs start and end dates and a minimum margin of 8 percent. [D94] Sale price is calculated from the cost plus a minimum margin by department. [D49] Monthly report with revenue, cost of goods sold and gross margin by department. [D12]"
+      },
+      {
+        "q": "What should the cashier do if the card terminal does not answer?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "If the terminal does not answer, cancel and try again or charge in cash. [D08] The card payment was declined by the terminal. [D77] The declined attempt appears in the card terminal log. [D77]"
+      },
+      {
+        "q": "Until when can a customer ask for an invoice?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Customers can ask for an invoice within the same month of the purchase. [D96] Request from a customer to receive an electronic invoice for the purchase on ticket 000930. [D23] Global invoice of the month for sales without individual invoice. [D78]"
+      },
+      {
+        "q": "Which products are on the low stock list?",
+        "source_in_top3": true,
+        "fact_in_answer": false,
+        "answer": "List of products below the minimum stock level. [D35] For each product it shows current stock, minimum level and suggested quantity to buy. [D35] When stock falls below the minimum the system adds the product to the low stock alert. [D84]"
+      }
+    ]
+  },
+  "latency": {
+    "search_ms": 0.4,
+    "chat_extractive_ms": 1.0
+  }
+}
