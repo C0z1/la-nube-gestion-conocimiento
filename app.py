@@ -99,7 +99,7 @@ with t_chat:
 with t_classify:
     st.header("Classify a new document")
     st.caption("Paste the text of a new manual, report, ticket, inventory record or policy. "
-               "Model: TF-IDF + logistic regression trained on the 100 store documents.")
+               f"Model: WordLlama embeddings + logistic regression trained on the {len(kb.DOCS)} store documents.")
     examples = {"—": "", "Supplier order": "Order to Carnes Selectas: 3 beef quarters and 20 kg of pork for Thursday delivery.",
                 "Hygiene rule": "Butchers must wash their hands and change gloves after touching money.",
                 "Sales summary": "Sales on Sunday were 31,200 pesos, 12 percent more than last Sunday."}
@@ -150,7 +150,7 @@ with t_metrics:
     b.markdown("**Confusion matrix** (rows = true, columns = predicted)")
     b.dataframe(pd.DataFrame(best["confusion"], index=c["labels"], columns=c["labels"]), use_container_width=True)
 
-    st.subheader("Retrieval · 24 hand-judged queries")
+    st.subheader(f"Retrieval · {sum(v['n'] for v in m['retrieval']['hybrid'].values())} hand-judged queries")
     st.dataframe(pd.DataFrame({(e, s): v for e, sets in m["retrieval"].items() for s, v in sets.items()}).T
                  .drop(columns="n"), use_container_width=True)
     r = m["recommendation"]

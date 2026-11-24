@@ -99,7 +99,7 @@ def make_classifier(kind="hybrid"):
     return make_pipeline(feats, LogisticRegression(max_iter=2000, C=10))
 
 
-CLASSIFIER_KIND = "tfidf"  # best macro-F1 in evaluate.py (see outputs/metrics.json)
+CLASSIFIER_KIND = "embeddings"  # best macro-F1 in evaluate.py (see outputs/metrics.json)
 _clf = make_classifier(CLASSIFIER_KIND).fit(TEXTS, [d["category"] for d in DOCS])
 
 
@@ -244,7 +244,7 @@ def graph_html(G, height="650px"):
 
 
 if __name__ == "__main__":  # self-check
-    assert len(DOCS) == 100 and set(CONCEPTS) == set(TOPIC_INVOLVES)
+    assert len(DOCS) >= 100 and set(CONCEPTS) == set(TOPIC_INVOLVES)
     assert search("close the register at the end of my shift", 3)[0][0]["id"] in {"D04", "D99", "D13"}
     assert classify("Purchase order to the beef supplier for 3 quarters")[0][0] == "Inventory"
     assert related("D04", 3)[0][0]["id"] != "D04"

@@ -58,7 +58,7 @@ def classification():
                      "errors": [f"{kb.DOCS[i]['id']} {kb.DOCS[i]['title']}: {y[i]} -> {pred[i]}"
                                 for i in range(len(y)) if y[i] != pred[i]]}
     best = max(res, key=lambda n: res[n]["macro_f1"])
-    return {"protocol": "stratified 5-fold cross-validation, 100 docs, 5 classes",
+    return {"protocol": f"stratified 5-fold cross-validation, {len(kb.DOCS)} docs, 5 classes",
             "labels": kb.CATEGORIES, "models": res, "best": best, "in_app": "logreg_" + kb.CLASSIFIER_KIND}
 
 

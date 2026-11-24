@@ -1,12 +1,12 @@
 {
   "corpus": {
-    "documents": 100,
+    "documents": 102,
     "categories": 5,
     "topics": 23,
-    "ontology_triples": 548
+    "ontology_triples": 558
   },
   "classification": {
-    "protocol": "stratified 5-fold cross-validation, 100 docs, 5 classes",
+    "protocol": "stratified 5-fold cross-validation, 102 docs, 5 classes",
     "labels": [
       "Inventory",
       "Manual",
@@ -16,10 +16,10 @@
     ],
     "models": {
       "naive_bayes_tfidf": {
-        "accuracy": 0.76,
-        "macro_precision": 0.768,
-        "macro_recall": 0.76,
-        "macro_f1": 0.745,
+        "accuracy": 0.735,
+        "macro_precision": 0.753,
+        "macro_recall": 0.74,
+        "macro_f1": 0.721,
         "per_class": {
           "Inventory": {
             "precision": 0.714,
@@ -27,24 +27,24 @@
             "f1-score": 0.833
           },
           "Manual": {
-            "precision": 0.778,
-            "recall": 0.7,
-            "f1-score": 0.737
+            "precision": 0.625,
+            "recall": 0.714,
+            "f1-score": 0.667
           },
           "Policy": {
-            "precision": 0.8,
-            "recall": 0.4,
-            "f1-score": 0.533
+            "precision": 0.778,
+            "recall": 0.333,
+            "f1-score": 0.467
           },
           "Report": {
-            "precision": 0.81,
-            "recall": 0.85,
-            "f1-score": 0.829
+            "precision": 0.941,
+            "recall": 0.8,
+            "f1-score": 0.865
           },
           "Sales": {
-            "precision": 0.739,
+            "precision": 0.708,
             "recall": 0.85,
-            "f1-score": 0.791
+            "f1-score": 0.773
           }
         },
         "confusion": [
@@ -57,24 +57,24 @@
           ],
           [
             2,
-            14,
-            1,
-            1,
+            15,
+            2,
+            0,
             2
           ],
           [
             3,
-            3,
-            8,
-            3,
+            7,
+            7,
+            1,
             3
           ],
           [
             1,
-            0,
             1,
-            17,
-            1
+            0,
+            16,
+            2
           ],
           [
             2,
@@ -92,55 +92,58 @@
           "D29 Price list for customers - weekly offers: Sales -> Inventory",
           "D41 Cash handling policy: Policy -> Manual",
           "D42 Nothing is deleted policy: Policy -> Inventory",
-          "D44 Customer credit policy: Policy -> Report",
+          "D43 Password and PIN security policy: Policy -> Manual",
+          "D44 Customer credit policy: Policy -> Sales",
           "D46 Returns and refunds policy: Policy -> Sales",
+          "D48 Opening and closing hours policy: Policy -> Manual",
           "D49 Pricing policy and margins: Policy -> Inventory",
+          "D53 Owner manual - creating a new user: Manual -> Policy",
           "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
           "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
-          "D58 Owner manual - reading the dashboard: Manual -> Report",
           "D63 Supplier performance report: Report -> Inventory",
-          "D69 Internet outage report: Report -> Policy",
+          "D65 Employee hours and shifts report: Report -> Manual",
+          "D69 Internet outage report: Report -> Sales",
           "D70 Customer credit collection report: Report -> Sales",
           "D75 Quote for a party order: Sales -> Inventory",
           "D92 Supplier payment policy: Policy -> Sales",
-          "D94 Promotions approval policy: Policy -> Report",
+          "D94 Promotions approval policy: Policy -> Manual",
           "D95 Cold chain policy: Policy -> Inventory",
-          "D96 Invoice issuing policy: Policy -> Sales",
           "D98 Discounts and price override policy: Policy -> Manual",
           "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report"
+          "D100 Waste and shrinkage control policy: Policy -> Report",
+          "D102 Daily review of exceptions and cash cuts policy: Policy -> Manual"
         ]
       },
       "logreg_tfidf": {
-        "accuracy": 0.86,
-        "macro_precision": 0.867,
-        "macro_recall": 0.86,
-        "macro_f1": 0.859,
+        "accuracy": 0.784,
+        "macro_precision": 0.787,
+        "macro_recall": 0.788,
+        "macro_f1": 0.776,
         "per_class": {
           "Inventory": {
-            "precision": 0.769,
+            "precision": 0.741,
             "recall": 1.0,
-            "f1-score": 0.87
+            "f1-score": 0.851
           },
           "Manual": {
-            "precision": 0.895,
-            "recall": 0.85,
-            "f1-score": 0.872
+            "precision": 0.727,
+            "recall": 0.762,
+            "f1-score": 0.744
           },
           "Policy": {
-            "precision": 0.882,
-            "recall": 0.75,
-            "f1-score": 0.811
+            "precision": 0.769,
+            "recall": 0.476,
+            "f1-score": 0.588
           },
           "Report": {
-            "precision": 0.9,
+            "precision": 0.857,
             "recall": 0.9,
-            "f1-score": 0.9
+            "f1-score": 0.878
           },
           "Sales": {
-            "precision": 0.889,
+            "precision": 0.842,
             "recall": 0.8,
-            "f1-score": 0.842
+            "f1-score": 0.821
           }
         },
         "confusion": [
@@ -153,17 +156,17 @@
           ],
           [
             2,
-            17,
-            0,
+            16,
+            2,
             0,
             1
           ],
           [
-            1,
-            1,
-            15,
             2,
-            1
+            5,
+            10,
+            2,
+            2
           ],
           [
             1,
@@ -175,58 +178,66 @@
           [
             2,
             1,
-            1,
             0,
+            1,
             16
           ]
         ],
         "errors": [
-          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D03 Cashier manual - customer credit F6: Manual -> Sales",
+          "D10 Owner manual - backups and restore: Manual -> Policy",
           "D27 Refund of a returned product: Sales -> Manual",
           "D29 Price list for customers - weekly offers: Sales -> Inventory",
+          "D41 Cash handling policy: Policy -> Manual",
           "D42 Nothing is deleted policy: Policy -> Inventory",
+          "D43 Password and PIN security policy: Policy -> Manual",
           "D44 Customer credit policy: Policy -> Report",
+          "D46 Returns and refunds policy: Policy -> Sales",
+          "D53 Owner manual - creating a new user: Manual -> Policy",
           "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
           "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
           "D63 Supplier performance report: Report -> Inventory",
           "D69 Internet outage report: Report -> Policy",
           "D75 Quote for a party order: Sales -> Inventory",
-          "D78 Monthly invoice for public sales: Sales -> Policy",
+          "D78 Monthly invoice for public sales: Sales -> Report",
           "D92 Supplier payment policy: Policy -> Sales",
+          "D95 Cold chain policy: Policy -> Inventory",
+          "D98 Discounts and price override policy: Policy -> Manual",
           "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report"
+          "D100 Waste and shrinkage control policy: Policy -> Report",
+          "D102 Daily review of exceptions and cash cuts policy: Policy -> Manual"
         ]
       },
       "logreg_embeddings": {
-        "accuracy": 0.79,
-        "macro_precision": 0.793,
-        "macro_recall": 0.79,
-        "macro_f1": 0.787,
+        "accuracy": 0.853,
+        "macro_precision": 0.856,
+        "macro_recall": 0.854,
+        "macro_f1": 0.853,
         "per_class": {
           "Inventory": {
-            "precision": 0.76,
+            "precision": 0.792,
             "recall": 0.95,
-            "f1-score": 0.844
+            "f1-score": 0.864
           },
           "Manual": {
-            "precision": 0.812,
-            "recall": 0.65,
-            "f1-score": 0.722
-          },
-          "Policy": {
-            "precision": 0.75,
-            "recall": 0.75,
-            "f1-score": 0.75
-          },
-          "Report": {
-            "precision": 0.842,
-            "recall": 0.8,
+            "precision": 0.889,
+            "recall": 0.762,
             "f1-score": 0.821
           },
+          "Policy": {
+            "precision": 0.857,
+            "recall": 0.857,
+            "f1-score": 0.857
+          },
+          "Report": {
+            "precision": 0.895,
+            "recall": 0.85,
+            "f1-score": 0.872
+          },
           "Sales": {
-            "precision": 0.8,
-            "recall": 0.8,
-            "f1-score": 0.8
+            "precision": 0.85,
+            "recall": 0.85,
+            "f1-score": 0.85
           }
         },
         "confusion": [
@@ -239,48 +250,42 @@
           ],
           [
             2,
-            13,
-            3,
-            0,
-            2
-          ],
-          [
-            1,
-            1,
-            15,
-            2,
-            1
-          ],
-          [
-            2,
-            1,
-            0,
             16,
+            2,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            18,
+            1,
+            1
+          ],
+          [
+            2,
+            0,
+            0,
+            17,
             1
           ],
           [
             1,
             1,
+            0,
             1,
-            1,
-            16
+            17
           ]
         ],
         "errors": [
           "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
-          "D24 Weekend promotion - two for one in beverages: Sales -> Policy",
+          "D10 Owner manual - backups and restore: Manual -> Policy",
           "D27 Refund of a returned product: Sales -> Manual",
-          "D44 Customer credit policy: Policy -> Report",
-          "D49 Pricing policy and margins: Policy -> Inventory",
-          "D53 Owner manual - creating a new user: Manual -> Policy",
           "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D55 Owner manual - changing prices: Manual -> Policy",
           "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
           "D59 Training guide for new cashiers: Manual -> Policy",
           "D62 Inventory value report - end of month: Report -> Inventory",
           "D63 Supplier performance report: Report -> Inventory",
-          "D65 Employee hours and shifts report: Report -> Manual",
           "D70 Customer credit collection report: Report -> Sales",
           "D75 Quote for a party order: Sales -> Inventory",
           "D76 Refund ticket for spoiled milk: Sales -> Report",
@@ -291,30 +296,30 @@
         ]
       },
       "logreg_hybrid": {
-        "accuracy": 0.84,
-        "macro_precision": 0.852,
-        "macro_recall": 0.84,
-        "macro_f1": 0.84,
+        "accuracy": 0.833,
+        "macro_precision": 0.84,
+        "macro_recall": 0.835,
+        "macro_f1": 0.833,
         "per_class": {
           "Inventory": {
-            "precision": 0.731,
+            "precision": 0.76,
             "recall": 0.95,
-            "f1-score": 0.826
+            "f1-score": 0.844
           },
           "Manual": {
             "precision": 0.882,
-            "recall": 0.75,
-            "f1-score": 0.811
+            "recall": 0.714,
+            "f1-score": 0.789
           },
           "Policy": {
-            "precision": 0.938,
-            "recall": 0.75,
-            "f1-score": 0.833
+            "precision": 0.8,
+            "recall": 0.762,
+            "f1-score": 0.78
           },
           "Report": {
-            "precision": 0.9,
+            "precision": 0.947,
             "recall": 0.9,
-            "f1-score": 0.9
+            "f1-score": 0.923
           },
           "Sales": {
             "precision": 0.81,
@@ -331,18 +336,18 @@
             0
           ],
           [
-            3,
+            2,
             15,
+            3,
             0,
-            0,
-            2
+            1
           ],
           [
             1,
             1,
-            15,
-            2,
-            1
+            16,
+            1,
+            2
           ],
           [
             1,
@@ -361,14 +366,15 @@
         ],
         "errors": [
           "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
+          "D10 Owner manual - backups and restore: Manual -> Policy",
           "D27 Refund of a returned product: Sales -> Manual",
           "D29 Price list for customers - weekly offers: Sales -> Inventory",
-          "D44 Customer credit policy: Policy -> Report",
+          "D46 Returns and refunds policy: Policy -> Sales",
           "D49 Pricing policy and margins: Policy -> Inventory",
+          "D53 Owner manual - creating a new user: Manual -> Policy",
           "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D55 Owner manual - changing prices: Manual -> Inventory",
           "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
+          "D59 Training guide for new cashiers: Manual -> Policy",
           "D63 Supplier performance report: Report -> Inventory",
           "D70 Customer credit collection report: Report -> Sales",
           "D75 Quote for a party order: Sales -> Inventory",
@@ -379,122 +385,122 @@
         ]
       }
     },
-    "best": "logreg_tfidf",
-    "in_app": "logreg_tfidf"
+    "best": "logreg_embeddings",
+    "in_app": "logreg_embeddings"
   },
   "retrieval": {
     "tfidf": {
       "keyword": {
-        "n": 12,
-        "P@3": 0.833,
-        "R@5": 0.822,
+        "n": 13,
+        "P@3": 0.821,
+        "R@5": 0.816,
         "MRR": 1.0
       },
       "paraphrase": {
-        "n": 12,
-        "P@3": 0.222,
-        "R@5": 0.319,
-        "MRR": 0.476
+        "n": 13,
+        "P@3": 0.231,
+        "R@5": 0.308,
+        "MRR": 0.521
       }
     },
     "embeddings": {
       "keyword": {
-        "n": 12,
-        "P@3": 0.917,
-        "R@5": 0.86,
-        "MRR": 0.917
+        "n": 13,
+        "P@3": 0.923,
+        "R@5": 0.836,
+        "MRR": 0.923
       },
       "paraphrase": {
-        "n": 12,
-        "P@3": 0.444,
-        "R@5": 0.542,
-        "MRR": 0.664
+        "n": 13,
+        "P@3": 0.513,
+        "R@5": 0.551,
+        "MRR": 0.764
       }
     },
     "hybrid": {
       "keyword": {
-        "n": 12,
-        "P@3": 0.917,
-        "R@5": 0.826,
+        "n": 13,
+        "P@3": 0.923,
+        "R@5": 0.84,
         "MRR": 1.0
       },
       "paraphrase": {
-        "n": 12,
-        "P@3": 0.5,
-        "R@5": 0.542,
-        "MRR": 0.68
+        "n": 13,
+        "P@3": 0.487,
+        "R@5": 0.532,
+        "MRR": 0.763
       }
     },
     "minilm (offline comparison)": {
       "keyword": {
-        "n": 12,
-        "P@3": 0.944,
-        "R@5": 0.843,
-        "MRR": 1.0
+        "n": 13,
+        "P@3": 0.923,
+        "R@5": 0.836,
+        "MRR": 0.962
       },
       "paraphrase": {
-        "n": 12,
-        "P@3": 0.583,
-        "R@5": 0.653,
-        "MRR": 0.807
+        "n": 13,
+        "P@3": 0.513,
+        "R@5": 0.641,
+        "MRR": 0.86
       }
     }
   },
   "recommendation": {
     "related_docs": {
       "embeddings (in app)": {
-        "P@5": 0.547,
-        "nDCG@5": 0.716
+        "P@5": 0.5,
+        "nDCG@5": 0.672
       },
       "tfidf": {
-        "P@5": 0.547,
-        "nDCG@5": 0.709
+        "P@5": 0.487,
+        "nDCG@5": 0.684
       },
       "random same category": {
-        "P@5": 0.04,
-        "nDCG@5": 0.029
+        "P@5": 0.062,
+        "nDCG@5": 0.069
       }
     },
-    "n_seeds": 15,
+    "n_seeds": 16,
     "session_context": {
       "n": 7,
-      "P@5 query alone": 0.457,
+      "P@5 query alone": 0.4,
       "P@5 with query history": 0.514
     }
   },
   "chatbot": {
-    "n": 15,
+    "n": 18,
     "mode": "extractive (no API key during evaluation)",
     "source_hit@3": 1.0,
-    "fact_in_answer": 0.933,
+    "fact_in_answer": 0.944,
     "out_of_scope_refused": "3/3",
     "threshold": 0.18,
-    "min_in_scope_score": 0.317,
+    "min_in_scope_score": 0.285,
     "max_out_of_scope_score": 0.119,
     "detail": [
       {
         "q": "What key do I press to sell on credit?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Instructions to sell on credit. [D03] Press F6, search the customer by name or phone, confirm the credit limit and finish the sale. [D03] To change the quantity press the asterisk key and type the number. [D02]"
+        "answer": "To sell on credit first choose the customer with F6, then charge with F4 credit. [D03] The system does not let a sale go over the customer's credit limit. [D03] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16]"
       },
       {
         "q": "What is the maximum credit limit for a customer?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "The maximum limit is 1500 pesos. [D44] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16] Press F6, search the customer by name or phone, confirm the credit limit and finish the sale. [D03]"
+        "answer": "The maximum limit is 1500 pesos. [D44] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16] The system does not let a sale go over the customer's credit limit. [D03]"
       },
       {
         "q": "What is the maximum cash allowed in the drawer?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "The cash in the drawer must not exceed 3000 pesos, the excess is withdrawn by the manager. [D41] At shift change the leaving cashier does the partial cut and counts the drawer with the next cashier. [D99] Cash payments to suppliers are not allowed above 2,000 pesos. [D92]"
+        "answer": "The cash in the drawer must not exceed 3000 pesos, the excess is withdrawn with F8 option 1 and authorized by the manager. [D41] Every day the owner or the manager reviews Panel then Exceptions: cancellations, removed items, discounts and drawer opened without a sale. [D102] At shift change the leaving cashier does the partial cut and counts the drawer with the next cashier. [D99]"
       },
       {
         "q": "How long do customers have to return a product?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Customers can return products within 24 hours with their ticket. [D46] Return of a product by a customer. [D27] Customer returned a milk carton expired yesterday. [D76]"
+        "answer": "Return of a product by a customer. [D27] Customers can return products within 24 hours with their ticket. [D46] Customer returned a milk carton expired yesterday. [D76]"
       },
       {
         "q": "At what temperature must meat be kept?",
@@ -512,19 +518,19 @@
         "q": "How long are old backups kept?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Old backups are kept for 30 days. [D47] Instructions to check backups. [D10] The nightly backup ran 30 of 30 days. [D66]"
+        "answer": "Old backups are kept for 30 days. [D47] Every month check the date of the last backup and do a restore test on another computer: a backup that was never restored does not count. [D10] The backup key was shown only once during installation; keep it written on paper outside the store. [D10]"
       },
       {
         "q": "Which key opens the cashier menu for the cash cut?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Open the cashier menu with F8 and choose cash cut. [D04] The system compares it with the expected cash and prints the cut ticket. [D04] Turn on the register, log in with your PIN, count the opening cash fund and type the amount. [D01]"
+        "answer": "Open the register menu with F8 and choose option 5, cash cut. [D04] The shift closes and the register is free for the next cashier. [D04] Choose your name with the arrow keys and Enter, type your 6 digit PIN, then count the opening cash fund in the drawer and type it. [D01]"
       },
       {
         "q": "What happens after several failed PIN attempts?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "After several failed attempts the account is locked. [D43] The employee must change the PIN the first time they log in. [D53] The manager authorized the refund with PIN. [D76]"
+        "answer": "After 5 wrong PIN attempts the user is locked for 15 minutes or until the owner unlocks it. [D43] When you finish press Back to register; the cashier logs in again with their PIN and the ticket in progress is still there. [D101] If the printer fails the sale is saved anyway, reprint it with F7. [D09]"
       },
       {
         "q": "What percentage of the beef quarter is sellable meat?",
@@ -545,10 +551,10 @@
         "answer": "Each promotion needs start and end dates and a minimum margin of 8 percent. [D94] Sale price is calculated from the cost plus a minimum margin by department. [D49] Monthly report with revenue, cost of goods sold and gross margin by department. [D12]"
       },
       {
-        "q": "What should the cashier do if the card terminal does not answer?",
+        "q": "How do I charge a card if there is no internet?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "If the terminal does not answer, cancel and try again or charge in cash. [D08] The card payment was declined by the terminal. [D77] The declined attempt appears in the card terminal log. [D77]"
+        "answer": "How to charge with card using the Point terminal of your register. [D08] If there is no internet use charge manually: charge on the terminal and type the authorization number. [D08] The card payment was declined by the terminal. [D77]"
       },
       {
         "q": "Until when can a customer ask for an invoice?",
@@ -561,11 +567,29 @@
         "source_in_top3": true,
         "fact_in_answer": false,
         "answer": "List of products below the minimum stock level. [D35] For each product it shows current stock, minimum level and suggested quantity to buy. [D35] When stock falls below the minimum the system adds the product to the low stock alert. [D84]"
+      },
+      {
+        "q": "How do I open the manager panel from the register?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "In the register press F9, choose your name and type your PIN: the manager panel opens. [D101] If the panel is not used for 5 minutes it returns to the register by itself. [D101] Open the admin, go to Users and add one user per person with the role cashier, butcher or manager. [D53]"
+      },
+      {
+        "q": "How often are backups made?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "Backups run by themselves every hour to the USB disk labelled RESPALDO and, if configured, to cloud storage. [D10] Every month check the date of the last backup and do a restore test on another computer: a backup that was never restored does not count. [D10] Old backups are kept for 30 days. [D47]"
+      },
+      {
+        "q": "How do I reprint a ticket?",
+        "source_in_top3": true,
+        "fact_in_answer": true,
+        "answer": "If the customer asks for a copy press F7 shift sales, select the ticket and choose reprint. [D56] The reprint is recorded. [D56] The ticket shows the authorization number and the last four digits of the card. [D22]"
       }
     ]
   },
   "latency": {
     "search_ms": 0.4,
-    "chat_extractive_ms": 1.0
+    "chat_extractive_ms": 0.8
   }
 }
