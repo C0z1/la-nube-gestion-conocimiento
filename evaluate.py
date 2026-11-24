@@ -42,7 +42,7 @@ def mean(xs):
 def classification():
     y = [d["category"] for d in kb.DOCS]
     cv = StratifiedKFold(5, shuffle=True, random_state=42)
-    models = {"naive_bayes_tfidf": make_pipeline(TfidfVectorizer(stop_words="english"), MultinomialNB())}
+    models = {"naive_bayes_tfidf": make_pipeline(TfidfVectorizer(**kb.TFIDF_ARGS), MultinomialNB())}
     models |= {f"logreg_{k}": kb.make_classifier(k) for k in ("tfidf", "embeddings", "hybrid")}
     res = {}
     for name, m in models.items():
@@ -112,7 +112,7 @@ def chatbot():
         f = item["fact"] in ans.lower()
         hit.append(h), fact.append(f)
         rows.append({"q": item["q"], "source_in_top3": h, "fact_in_answer": f, "answer": ans})
-    oos = [kb.chat(q)[0].startswith("I couldn't find") for q in J["out_of_scope"]]
+    oos = [kb.chat(q)[0] == kb.NOT_FOUND_MSG for q in J["out_of_scope"]]
     in_top = [kb.search(i["q"], 1)[0][1] for i in J["chat"]]
     oos_top = [kb.search(q, 1)[0][1] for q in J["out_of_scope"]]
     return {"n": len(J["chat"]), "mode": "extractive (no API key during evaluation)",

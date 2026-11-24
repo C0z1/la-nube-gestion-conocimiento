@@ -1,7 +1,8 @@
 """Core of the La Nube knowledge system: corpus, search, classifier, recommender,
 chatbot and knowledge graph. The Streamlit app (app.py) and evaluate.py import it.
 
-Embeddings: WordLlama (~16 MB, CPU only) so it runs on the store's local server and
+Embeddings: model2vec potion-multilingual-128M (static, Spanish-capable, float16 ~250 MB, CPU only,
+no torch) so it runs on the store's local server and
 on Streamlit Community Cloud's free tier without torch.
 """
 import csv
@@ -17,7 +18,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import FunctionTransformer
-from wordllama import WordLlama
+from model2vec import StaticModel
 
 ROOT = Path(__file__).resolve().parent
 LN = Namespace("http://www.example.org/la-nube#")
@@ -32,14 +33,20 @@ CATEGORIES = sorted({d["category"] for d in DOCS})
 CONCEPTS = sorted({c for d in DOCS for c in d["concepts"]})
 
 # ---------- vectors ----------
-_model = WordLlama.load()
+_model = StaticModel.from_pretrained("minishlab/potion-multilingual-128M", quantize_to="float16")
 
 
 def embed(texts):
-    return _model.embed(list(texts), norm=True)
+    v = _model.encode(list(texts)).astype(np.float32)
+    return v / np.maximum(np.linalg.norm(v, axis=1, keepdims=True), 1e-9)
 
 
-TFIDF = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), sublinear_tf=True)
+# sklearn only ships English stop words; this short Spanish list covers the corpus' function words
+STOP_ES = ("a al algo ante antes como con cual cuando de del desde donde el ella en entre es esa ese eso esta este esto "
+           "fue ha hay la las le les lo los mas me mi muy no nos o para pero por que se si sin sobre su sus te tu un una "
+           "uno unos y ya yo quien cuanto cuanta cuantos cuantas hago puedo tengo hola ayer hoy").split()  # accent-free: matched after strip_accents
+TFIDF_ARGS = dict(stop_words=STOP_ES, strip_accents="unicode", ngram_range=(1, 2), sublinear_tf=True)
+TFIDF = TfidfVectorizer(**TFIDF_ARGS)
 TFIDF_MATRIX = TFIDF.fit_transform(TEXTS)
 DOC_VECS = embed(TEXTS)
 
@@ -85,9 +92,9 @@ def recommend(queries=(), viewed=(), k=5, decay=0.5):
 
 # ---------- classification ----------
 def make_classifier(kind="hybrid"):
-    """tfidf: TF-IDF + LogReg (Phase I). embeddings: WordLlama + LogReg.
+    """tfidf: TF-IDF + LogReg (Phase I). embeddings: model2vec + LogReg.
     hybrid: both feature sets side by side."""
-    tfidf = TfidfVectorizer(stop_words="english", ngram_range=(1, 2), sublinear_tf=True)
+    tfidf = TfidfVectorizer(**TFIDF_ARGS)
     emb = FunctionTransformer(embed)
     if kind == "tfidf":
         feats = tfidf
@@ -99,7 +106,7 @@ def make_classifier(kind="hybrid"):
     return make_pipeline(feats, LogisticRegression(max_iter=2000, C=10))
 
 
-CLASSIFIER_KIND = "embeddings"  # best macro-F1 in evaluate.py (see outputs/metrics.json)
+CLASSIFIER_KIND = "hybrid"  # best macro-F1 in evaluate.py (see outputs/metrics.json)
 _clf = make_classifier(CLASSIFIER_KIND).fit(TEXTS, [d["category"] for d in DOCS])
 
 
@@ -109,7 +116,8 @@ def classify(text):
 
 
 # ---------- chatbot ----------
-NOT_FOUND = 0.18  # below this hybrid score the top document is unrelated (tuned in evaluate.py)
+NOT_FOUND = 0.19  # below this hybrid score the top document is unrelated (gap measured in evaluate.py)
+NOT_FOUND_MSG = "No encontré eso en los documentos de la tienda."
 
 
 def _sentences(text):
@@ -120,9 +128,11 @@ def retrieve_answer(question, k=3):
     """Extractive answer: the sentences of the top documents closest to the question."""
     hits = search(question, k)
     if not hits or hits[0][1] < NOT_FOUND:
-        return "I couldn't find that in the store documents. Try other words or check the Search tab.", hits
+        return NOT_FOUND_MSG, hits
     cands = [(s, d) for d, _ in hits for s in _sentences(d["text"])]
-    sv = embed([s for s, _ in cands]) @ embed([question])[0]
+    sents = [s for s, _ in cands]  # same hybrid score as search: exact words + meaning
+    sv = 0.5 * (TFIDF.transform(sents) @ TFIDF.transform([question]).T).toarray().ravel() \
+        + 0.5 * embed(sents) @ embed([question])[0]
     top = sorted(np.argsort(sv)[::-1][:3], key=lambda i: i)  # keep document order
     return " ".join(f"{cands[i][0]} [{cands[i][1]['id']}]" for i in top), hits
 
@@ -130,10 +140,10 @@ def retrieve_answer(question, k=3):
 def llm_answer(question, hits, api_key, model="deepseek-chat"):
     context = "\n".join(f"[{d['id']}] {d['title']}: {d['text']}" for d, _ in hits)
     body = {"model": model, "temperature": 0.2, "max_tokens": 300, "messages": [
-        {"role": "system", "content": "You are the knowledge assistant of La Nube, a small supermarket. "
-         "Answer ONLY from the documents given, in 2-4 sentences, and cite document ids like [D04]. "
-         "If the documents do not contain the answer, say so."},
-        {"role": "user", "content": f"Documents:\n{context}\n\nQuestion: {question}"}]}
+        {"role": "system", "content": "Eres el asistente de conocimiento de La Nube, un mini-súper. "
+         "Responde en español SOLO con los documentos dados, en 2-4 oraciones, y cita los ids como [D04]. "
+         "Si los documentos no contienen la respuesta, dilo."},
+        {"role": "user", "content": f"Documentos:\n{context}\n\nPregunta: {question}"}]}
     req = urllib.request.Request("https://api.deepseek.com/chat/completions", json.dumps(body).encode(),
                                  {"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -153,8 +163,8 @@ def chat(question, api_key=None):
 
 
 # ---------- ontology / knowledge graph ----------
-CATEGORY_CLASS = {"Manual": "Manual", "Report": "Report", "Sales": "SalesDocument",
-                  "Inventory": "InventoryRecord", "Policy": "Policy"}
+CATEGORY_CLASS = {"Manual": "Manual", "Reporte": "Report", "Ventas": "SalesDocument",
+                  "Inventario": "InventoryRecord", "Política": "Policy"}
 # Phase II topics anchored to the Phase I ontology classes they involve
 TOPIC_INVOLVES = {
     "Audit": ["Manager"], "Backup": ["Manager"], "Butchery": ["MeatCut", "Butcher"],
@@ -193,8 +203,8 @@ def build_ontology():
     return g
 
 
-COLORS = {"Manual": "#2563eb", "Report": "#d97706", "Sales": "#16a34a", "Inventory": "#7c3aed",
-          "Policy": "#dc2626", "topic": "#0891b2", "class": "#64748b"}
+COLORS = {"Manual": "#2563eb", "Reporte": "#d97706", "Ventas": "#16a34a", "Inventario": "#7c3aed",
+          "Política": "#dc2626", "topic": "#0891b2", "class": "#64748b"}
 
 
 def knowledge_graph(categories=None, topics=None, focus=None, sim_threshold=0.85, show_classes=True):
@@ -245,13 +255,13 @@ def graph_html(G, height="650px"):
 
 if __name__ == "__main__":  # self-check
     assert len(DOCS) >= 100 and set(CONCEPTS) == set(TOPIC_INVOLVES)
-    assert search("close the register at the end of my shift", 3)[0][0]["id"] in {"D04", "D99", "D13"}
-    assert classify("Purchase order to the beef supplier for 3 quarters")[0][0] == "Inventory"
+    assert search("cerrar la caja al final de mi turno", 3)[0][0]["id"] in {"D04", "D99", "D13"}
+    assert classify("Pedido al proveedor de res: 3 cuartos de canal")[0][0] == "Inventario"
     assert related("D04", 3)[0][0]["id"] != "D04"
-    assert recommend(["who owes us money"], ["D16"])[0][0]["id"] != "D16"
-    a, hits, mode = chat("what do I do if the internet goes down?")
+    assert recommend(["quién nos debe dinero"], ["D16"])[0][0]["id"] != "D16"
+    a, hits, mode = chat("¿qué hago si se cae el internet?")
     assert mode == "extractive" and "[D" in a, a
-    assert chat("recipe for chocolate cake")[0].startswith("I couldn't find")
+    assert chat("receta de pastel de chocolate")[0] == NOT_FOUND_MSG
     g = build_ontology()
     assert (LN.D04, LN.about, LN.topic_CashClosing) in g
     G = knowledge_graph(focus="D04")

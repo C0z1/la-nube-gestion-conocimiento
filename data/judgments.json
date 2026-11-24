@@ -3,7 +3,7 @@
  "retrieval": [
   {
    "set": "keyword",
-   "q": "how do I close the register at the end of my shift",
+   "q": "cómo cierro la caja al final de mi turno",
    "relevant": [
     "D04",
     "D99",
@@ -14,7 +14,7 @@
   },
   {
    "set": "keyword",
-   "q": "customer credit balance owed",
+   "q": "saldo de crédito que debe el cliente",
    "relevant": [
     "D16",
     "D70",
@@ -27,7 +27,7 @@
   },
   {
    "set": "keyword",
-   "q": "meat waste and yield of beef",
+   "q": "merma de carne y rendimiento de res",
    "relevant": [
     "D14",
     "D67",
@@ -38,7 +38,7 @@
   },
   {
    "set": "keyword",
-   "q": "what happens if the internet goes down",
+   "q": "qué pasa si se cae el internet",
    "relevant": [
     "D50",
     "D69",
@@ -48,7 +48,7 @@
   },
   {
    "set": "keyword",
-   "q": "charge with debit card terminal",
+   "q": "cobrar con terminal de tarjeta de débito",
    "relevant": [
     "D08",
     "D22",
@@ -59,7 +59,7 @@
   },
   {
    "set": "keyword",
-   "q": "refund of a returned product",
+   "q": "devolución de un producto regresado",
    "relevant": [
     "D27",
     "D46",
@@ -69,7 +69,7 @@
   },
   {
    "set": "keyword",
-   "q": "nightly backup and restore",
+   "q": "respaldo y restauración nocturnos",
    "relevant": [
     "D10",
     "D47",
@@ -78,7 +78,7 @@
   },
   {
    "set": "keyword",
-   "q": "purchase order to supplier",
+   "q": "orden de compra al proveedor",
    "relevant": [
     "D31",
     "D81",
@@ -89,7 +89,7 @@
   },
   {
    "set": "keyword",
-   "q": "two for one promotion beverages",
+   "q": "promoción dos por uno en bebidas",
    "relevant": [
     "D24",
     "D64",
@@ -100,7 +100,7 @@
   },
   {
    "set": "keyword",
-   "q": "invoice CFDI tax data",
+   "q": "datos fiscales de la factura CFDI",
    "relevant": [
     "D23",
     "D72",
@@ -111,7 +111,7 @@
   },
   {
    "set": "keyword",
-   "q": "cold room temperature meat",
+   "q": "temperatura de la cámara fría para carne",
    "relevant": [
     "D95",
     "D83",
@@ -121,7 +121,7 @@
   },
   {
    "set": "keyword",
-   "q": "change product prices and margin",
+   "q": "cambiar precios y margen de productos",
    "relevant": [
     "D55",
     "D49",
@@ -131,7 +131,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "balance the till before going home",
+   "q": "cuadrar la caja antes de irse a casa",
    "relevant": [
     "D04",
     "D99",
@@ -141,7 +141,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "who still owes us money",
+   "q": "quién todavía nos debe dinero",
    "relevant": [
     "D16",
     "D70",
@@ -151,7 +151,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "which items are running out",
+   "q": "qué productos se están agotando",
    "relevant": [
     "D35",
     "D84"
@@ -159,7 +159,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "the web connection is lost, can we still sell",
+   "q": "se perdió la conexión a internet, ¿podemos seguir vendiendo?",
    "relevant": [
     "D50",
     "D69",
@@ -169,7 +169,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "a customer brought back spoiled milk",
+   "q": "un cliente trajo de vuelta leche echada a perder",
    "relevant": [
     "D76",
     "D46",
@@ -178,7 +178,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "how do I teach a new employee to use the register",
+   "q": "cómo le enseño a un empleado nuevo a usar la caja",
    "relevant": [
     "D59",
     "D01",
@@ -187,7 +187,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "how much beef is lost when we cut it",
+   "q": "cuánta carne de res se pierde cuando la cortamos",
    "relevant": [
     "D67",
     "D14",
@@ -197,7 +197,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "the label printer at the meat counter shows the wrong weight",
+   "q": "la impresora de etiquetas de la carnicería muestra el peso equivocado",
    "relevant": [
     "D06",
     "D60",
@@ -206,7 +206,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "someone's card was rejected",
+   "q": "le rechazaron la tarjeta a alguien",
    "relevant": [
     "D77",
     "D20",
@@ -215,7 +215,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "add a worker account",
+   "q": "agregar una cuenta de trabajador",
    "relevant": [
     "D53",
     "D43"
@@ -223,7 +223,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "when do we pay the people who sell us goods",
+   "q": "cuándo les pagamos a los que nos surten mercancía",
    "relevant": [
     "D92",
     "D89",
@@ -232,7 +232,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "products past their date",
+   "q": "productos caducados",
    "relevant": [
     "D37",
     "D82",
@@ -242,7 +242,7 @@
   },
   {
    "set": "paraphrase",
-   "q": "the boss wants to check who keeps cancelling tickets",
+   "q": "el jefe quiere revisar quién anda cancelando tickets",
    "relevant": [
     "D102",
     "D17",
@@ -252,7 +252,7 @@
   },
   {
    "set": "keyword",
-   "q": "open the manager panel with PIN",
+   "q": "abrir el panel del gerente con PIN",
    "relevant": [
     "D101",
     "D53",
@@ -364,129 +364,129 @@
  },
  "chat": [
   {
-   "q": "What key do I press to sell on credit?",
+   "q": "¿Qué tecla presiono para vender a crédito?",
    "docs": [
     "D03"
    ],
    "fact": "f4"
   },
   {
-   "q": "What is the maximum credit limit for a customer?",
+   "q": "¿Cuál es el límite máximo de crédito para un cliente?",
    "docs": [
     "D44"
    ],
    "fact": "1500"
   },
   {
-   "q": "What is the maximum cash allowed in the drawer?",
+   "q": "¿Cuál es el máximo de efectivo permitido en la caja?",
    "docs": [
     "D41"
    ],
    "fact": "3000"
   },
   {
-   "q": "How long do customers have to return a product?",
+   "q": "¿Cuánto tiempo tienen los clientes para devolver un producto?",
    "docs": [
     "D46"
    ],
-   "fact": "24 hours"
+   "fact": "24 horas"
   },
   {
-   "q": "At what temperature must meat be kept?",
+   "q": "¿A qué temperatura se debe mantener la carne?",
    "docs": [
     "D45",
     "D95"
    ],
-   "fact": "4 degrees"
+   "fact": "4 grados"
   },
   {
-   "q": "What time does the store open?",
+   "q": "¿A qué hora abre la tienda?",
    "docs": [
     "D48"
    ],
-   "fact": "7 am"
+   "fact": "7"
   },
   {
-   "q": "How long are old backups kept?",
+   "q": "¿Cuánto tiempo se guardan los respaldos viejos?",
    "docs": [
     "D47"
    ],
-   "fact": "30 days"
+   "fact": "30 días"
   },
   {
-   "q": "Which key opens the cashier menu for the cash cut?",
+   "q": "¿Qué tecla abre el menú de cajero para el corte de caja?",
    "docs": [
     "D04"
    ],
    "fact": "f8"
   },
   {
-   "q": "What happens after several failed PIN attempts?",
+   "q": "¿Qué pasa después de varios intentos fallidos de PIN?",
    "docs": [
     "D43"
    ],
-   "fact": "15 minutes"
+   "fact": "15 minutos"
   },
   {
-   "q": "What percentage of the beef quarter is sellable meat?",
+   "q": "¿Qué porcentaje de la canal de res es carne vendible?",
    "docs": [
     "D67"
    ],
-   "fact": "72 percent"
+   "fact": "72"
   },
   {
-   "q": "When are suppliers paid?",
+   "q": "¿Cuándo se les paga a los proveedores?",
    "docs": [
     "D92"
    ],
-   "fact": "friday"
+   "fact": "viernes"
   },
   {
-   "q": "What is the minimum margin for a promotion?",
+   "q": "¿Cuál es el margen mínimo para una promoción?",
    "docs": [
     "D94"
    ],
-   "fact": "8 percent"
+   "fact": "8"
   },
   {
-   "q": "How do I charge a card if there is no internet?",
+   "q": "¿Cómo cobro con tarjeta si no hay internet?",
    "docs": [
     "D08"
    ],
-   "fact": "authorization"
+   "fact": "autoriza"
   },
   {
-   "q": "Until when can a customer ask for an invoice?",
+   "q": "¿Hasta cuándo puede pedir factura un cliente?",
    "docs": [
     "D96"
    ],
-   "fact": "same month"
+   "fact": "mismo mes"
   },
   {
-   "q": "Which products are on the low stock list?",
+   "q": "¿Qué productos están en la lista de stock bajo?",
    "docs": [
     "D35",
     "D84"
    ],
-   "fact": "milk"
+   "fact": "leche"
   },
   {
-   "q": "How do I open the manager panel from the register?",
+   "q": "¿Cómo abro el panel de gerente desde la caja?",
    "docs": [
     "D101"
    ],
    "fact": "f9"
   },
   {
-   "q": "How often are backups made?",
+   "q": "¿Cada cuánto se hacen los respaldos?",
    "docs": [
     "D10",
     "D47"
    ],
-   "fact": "every hour"
+   "fact": "cada hora"
   },
   {
-   "q": "How do I reprint a ticket?",
+   "q": "¿Cómo reimprimo un ticket?",
    "docs": [
     "D56",
     "D09"
@@ -495,8 +495,8 @@
   }
  ],
  "out_of_scope": [
-  "recipe for chocolate cake",
-  "who won the football match yesterday",
-  "how do I renew my passport"
+  "receta de pastel de chocolate",
+  "quién ganó el partido de fútbol ayer",
+  "cómo renuevo mi pasaporte"
  ]
 }

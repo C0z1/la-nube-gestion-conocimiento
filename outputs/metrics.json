@@ -3,48 +3,48 @@
     "documents": 102,
     "categories": 5,
     "topics": 23,
-    "ontology_triples": 558
+    "ontology_triples": 560
   },
   "classification": {
     "protocol": "stratified 5-fold cross-validation, 102 docs, 5 classes",
     "labels": [
-      "Inventory",
+      "Inventario",
       "Manual",
-      "Policy",
-      "Report",
-      "Sales"
+      "Pol\u00edtica",
+      "Reporte",
+      "Ventas"
     ],
     "models": {
       "naive_bayes_tfidf": {
-        "accuracy": 0.735,
-        "macro_precision": 0.753,
-        "macro_recall": 0.74,
-        "macro_f1": 0.721,
+        "accuracy": 0.775,
+        "macro_precision": 0.778,
+        "macro_recall": 0.778,
+        "macro_f1": 0.771,
         "per_class": {
-          "Inventory": {
-            "precision": 0.714,
+          "Inventario": {
+            "precision": 0.8,
             "recall": 1.0,
-            "f1-score": 0.833
+            "f1-score": 0.889
           },
           "Manual": {
             "precision": 0.625,
             "recall": 0.714,
             "f1-score": 0.667
           },
-          "Policy": {
-            "precision": 0.778,
-            "recall": 0.333,
-            "f1-score": 0.467
+          "Pol\u00edtica": {
+            "precision": 0.667,
+            "recall": 0.476,
+            "f1-score": 0.556
           },
-          "Report": {
+          "Reporte": {
+            "precision": 0.857,
+            "recall": 0.9,
+            "f1-score": 0.878
+          },
+          "Ventas": {
             "precision": 0.941,
             "recall": 0.8,
             "f1-score": 0.865
-          },
-          "Sales": {
-            "precision": 0.708,
-            "recall": 0.85,
-            "f1-score": 0.773
           }
         },
         "confusion": [
@@ -58,403 +58,388 @@
           [
             2,
             15,
-            2,
-            0,
-            2
-          ],
-          [
-            3,
-            7,
-            7,
-            1,
-            3
-          ],
-          [
-            1,
-            1,
-            0,
-            16,
-            2
-          ],
-          [
-            2,
-            1,
-            0,
-            0,
-            17
-          ]
-        ],
-        "errors": [
-          "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D08 Manual - card terminal Mercado Pago Point: Manual -> Sales",
-          "D10 Owner manual - backups and restore: Manual -> Policy",
-          "D27 Refund of a returned product: Sales -> Manual",
-          "D29 Price list for customers - weekly offers: Sales -> Inventory",
-          "D41 Cash handling policy: Policy -> Manual",
-          "D42 Nothing is deleted policy: Policy -> Inventory",
-          "D43 Password and PIN security policy: Policy -> Manual",
-          "D44 Customer credit policy: Policy -> Sales",
-          "D46 Returns and refunds policy: Policy -> Sales",
-          "D48 Opening and closing hours policy: Policy -> Manual",
-          "D49 Pricing policy and margins: Policy -> Inventory",
-          "D53 Owner manual - creating a new user: Manual -> Policy",
-          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
-          "D63 Supplier performance report: Report -> Inventory",
-          "D65 Employee hours and shifts report: Report -> Manual",
-          "D69 Internet outage report: Report -> Sales",
-          "D70 Customer credit collection report: Report -> Sales",
-          "D75 Quote for a party order: Sales -> Inventory",
-          "D92 Supplier payment policy: Policy -> Sales",
-          "D94 Promotions approval policy: Policy -> Manual",
-          "D95 Cold chain policy: Policy -> Inventory",
-          "D98 Discounts and price override policy: Policy -> Manual",
-          "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report",
-          "D102 Daily review of exceptions and cash cuts policy: Policy -> Manual"
-        ]
-      },
-      "logreg_tfidf": {
-        "accuracy": 0.784,
-        "macro_precision": 0.787,
-        "macro_recall": 0.788,
-        "macro_f1": 0.776,
-        "per_class": {
-          "Inventory": {
-            "precision": 0.741,
-            "recall": 1.0,
-            "f1-score": 0.851
-          },
-          "Manual": {
-            "precision": 0.727,
-            "recall": 0.762,
-            "f1-score": 0.744
-          },
-          "Policy": {
-            "precision": 0.769,
-            "recall": 0.476,
-            "f1-score": 0.588
-          },
-          "Report": {
-            "precision": 0.857,
-            "recall": 0.9,
-            "f1-score": 0.878
-          },
-          "Sales": {
-            "precision": 0.842,
-            "recall": 0.8,
-            "f1-score": 0.821
-          }
-        },
-        "confusion": [
-          [
-            20,
-            0,
-            0,
+            4,
             0,
             0
           ],
           [
+            1,
+            7,
+            10,
             2,
-            16,
-            2,
-            0,
             1
           ],
           [
-            2,
-            5,
-            10,
-            2,
-            2
-          ],
-          [
+            1,
             1,
             0,
-            1,
             18,
             0
           ],
           [
-            2,
             1,
-            0,
+            1,
+            1,
             1,
             16
           ]
         ],
         "errors": [
-          "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D10 Owner manual - backups and restore: Manual -> Policy",
-          "D27 Refund of a returned product: Sales -> Manual",
-          "D29 Price list for customers - weekly offers: Sales -> Inventory",
-          "D41 Cash handling policy: Policy -> Manual",
-          "D42 Nothing is deleted policy: Policy -> Inventory",
-          "D43 Password and PIN security policy: Policy -> Manual",
-          "D44 Customer credit policy: Policy -> Report",
-          "D46 Returns and refunds policy: Policy -> Sales",
-          "D53 Owner manual - creating a new user: Manual -> Policy",
-          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
-          "D63 Supplier performance report: Report -> Inventory",
-          "D69 Internet outage report: Report -> Policy",
-          "D75 Quote for a party order: Sales -> Inventory",
-          "D78 Monthly invoice for public sales: Sales -> Report",
-          "D92 Supplier payment policy: Policy -> Sales",
-          "D95 Cold chain policy: Policy -> Inventory",
-          "D98 Discounts and price override policy: Policy -> Manual",
-          "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report",
-          "D102 Daily review of exceptions and cash cuts policy: Policy -> Manual"
+          "D10 Manual del due\u00f1o - respaldos y restauraci\u00f3n: Manual -> Pol\u00edtica",
+          "D18 Reporte de incidencia - falla de impresora en caja 2: Reporte -> Manual",
+          "D27 Reembolso de un producto devuelto: Ventas -> Manual",
+          "D29 Lista de precios para clientes - ofertas de la semana: Ventas -> Pol\u00edtica",
+          "D41 Pol\u00edtica de manejo de efectivo: Pol\u00edtica -> Manual",
+          "D43 Pol\u00edtica de seguridad de contrase\u00f1as y PIN: Pol\u00edtica -> Manual",
+          "D44 Pol\u00edtica de cr\u00e9dito a clientes: Pol\u00edtica -> Reporte",
+          "D48 Pol\u00edtica de horarios de apertura y cierre: Pol\u00edtica -> Manual",
+          "D49 Pol\u00edtica de precios y m\u00e1rgenes: Pol\u00edtica -> Inventario",
+          "D53 Manual del due\u00f1o - crear un usuario nuevo: Manual -> Pol\u00edtica",
+          "D54 Manual del carnicero - cortar y porcionar carne de res: Manual -> Inventario",
+          "D57 Manual - recibir entregas de proveedores: Manual -> Inventario",
+          "D58 Manual del due\u00f1o - leer el tablero: Manual -> Pol\u00edtica",
+          "D59 Gu\u00eda de capacitaci\u00f3n para cajeros nuevos: Manual -> Pol\u00edtica",
+          "D63 Reporte de desempe\u00f1o de proveedores: Reporte -> Inventario",
+          "D75 Cotizaci\u00f3n para pedido de fiesta: Ventas -> Inventario",
+          "D78 Factura mensual de ventas al p\u00fablico: Ventas -> Reporte",
+          "D92 Pol\u00edtica de pago a proveedores: Pol\u00edtica -> Ventas",
+          "D94 Pol\u00edtica de aprobaci\u00f3n de promociones: Pol\u00edtica -> Manual",
+          "D98 Pol\u00edtica de descuentos y cambio de precios: Pol\u00edtica -> Manual",
+          "D99 Pol\u00edtica de cambio de turno: Pol\u00edtica -> Manual",
+          "D100 Pol\u00edtica de control de mermas y desperdicios: Pol\u00edtica -> Reporte",
+          "D102 Pol\u00edtica de revisi\u00f3n diaria de excepciones y cortes de caja: Pol\u00edtica -> Manual"
         ]
       },
-      "logreg_embeddings": {
-        "accuracy": 0.853,
-        "macro_precision": 0.856,
-        "macro_recall": 0.854,
-        "macro_f1": 0.853,
+      "logreg_tfidf": {
+        "accuracy": 0.804,
+        "macro_precision": 0.802,
+        "macro_recall": 0.808,
+        "macro_f1": 0.799,
         "per_class": {
-          "Inventory": {
-            "precision": 0.792,
-            "recall": 0.95,
-            "f1-score": 0.864
-          },
-          "Manual": {
-            "precision": 0.889,
-            "recall": 0.762,
-            "f1-score": 0.821
-          },
-          "Policy": {
-            "precision": 0.857,
-            "recall": 0.857,
-            "f1-score": 0.857
-          },
-          "Report": {
-            "precision": 0.895,
-            "recall": 0.85,
-            "f1-score": 0.872
-          },
-          "Sales": {
-            "precision": 0.85,
-            "recall": 0.85,
-            "f1-score": 0.85
-          }
-        },
-        "confusion": [
-          [
-            19,
-            0,
-            1,
-            0,
-            0
-          ],
-          [
-            2,
-            16,
-            2,
-            0,
-            1
-          ],
-          [
-            0,
-            1,
-            18,
-            1,
-            1
-          ],
-          [
-            2,
-            0,
-            0,
-            17,
-            1
-          ],
-          [
-            1,
-            1,
-            0,
-            1,
-            17
-          ]
-        ],
-        "errors": [
-          "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D10 Owner manual - backups and restore: Manual -> Policy",
-          "D27 Refund of a returned product: Sales -> Manual",
-          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
-          "D59 Training guide for new cashiers: Manual -> Policy",
-          "D62 Inventory value report - end of month: Report -> Inventory",
-          "D63 Supplier performance report: Report -> Inventory",
-          "D70 Customer credit collection report: Report -> Sales",
-          "D75 Quote for a party order: Sales -> Inventory",
-          "D76 Refund ticket for spoiled milk: Sales -> Report",
-          "D90 Stock adjustment after audit: Inventory -> Policy",
-          "D92 Supplier payment policy: Policy -> Sales",
-          "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report"
-        ]
-      },
-      "logreg_hybrid": {
-        "accuracy": 0.833,
-        "macro_precision": 0.84,
-        "macro_recall": 0.835,
-        "macro_f1": 0.833,
-        "per_class": {
-          "Inventory": {
-            "precision": 0.76,
-            "recall": 0.95,
-            "f1-score": 0.844
-          },
-          "Manual": {
-            "precision": 0.882,
-            "recall": 0.714,
-            "f1-score": 0.789
-          },
-          "Policy": {
+          "Inventario": {
             "precision": 0.8,
-            "recall": 0.762,
-            "f1-score": 0.78
+            "recall": 1.0,
+            "f1-score": 0.889
           },
-          "Report": {
-            "precision": 0.947,
-            "recall": 0.9,
-            "f1-score": 0.923
+          "Manual": {
+            "precision": 0.714,
+            "recall": 0.714,
+            "f1-score": 0.714
           },
-          "Sales": {
-            "precision": 0.81,
+          "Pol\u00edtica": {
+            "precision": 0.688,
+            "recall": 0.524,
+            "f1-score": 0.595
+          },
+          "Reporte": {
+            "precision": 0.864,
+            "recall": 0.95,
+            "f1-score": 0.905
+          },
+          "Ventas": {
+            "precision": 0.944,
             "recall": 0.85,
-            "f1-score": 0.829
+            "f1-score": 0.895
           }
         },
         "confusion": [
           [
-            19,
+            20,
             0,
-            1,
+            0,
             0,
             0
           ],
           [
             2,
             15,
-            3,
+            4,
             0,
+            0
+          ],
+          [
+            1,
+            6,
+            11,
+            2,
             1
           ],
           [
             1,
-            1,
-            16,
-            1,
-            2
+            0,
+            0,
+            19,
+            0
           ],
           [
             1,
             0,
-            0,
+            1,
+            1,
+            17
+          ]
+        ],
+        "errors": [
+          "D10 Manual del due\u00f1o - respaldos y restauraci\u00f3n: Manual -> Pol\u00edtica",
+          "D29 Lista de precios para clientes - ofertas de la semana: Ventas -> Pol\u00edtica",
+          "D41 Pol\u00edtica de manejo de efectivo: Pol\u00edtica -> Manual",
+          "D43 Pol\u00edtica de seguridad de contrase\u00f1as y PIN: Pol\u00edtica -> Manual",
+          "D44 Pol\u00edtica de cr\u00e9dito a clientes: Pol\u00edtica -> Reporte",
+          "D49 Pol\u00edtica de precios y m\u00e1rgenes: Pol\u00edtica -> Inventario",
+          "D53 Manual del due\u00f1o - crear un usuario nuevo: Manual -> Pol\u00edtica",
+          "D54 Manual del carnicero - cortar y porcionar carne de res: Manual -> Inventario",
+          "D57 Manual - recibir entregas de proveedores: Manual -> Inventario",
+          "D58 Manual del due\u00f1o - leer el tablero: Manual -> Pol\u00edtica",
+          "D59 Gu\u00eda de capacitaci\u00f3n para cajeros nuevos: Manual -> Pol\u00edtica",
+          "D63 Reporte de desempe\u00f1o de proveedores: Reporte -> Inventario",
+          "D75 Cotizaci\u00f3n para pedido de fiesta: Ventas -> Inventario",
+          "D78 Factura mensual de ventas al p\u00fablico: Ventas -> Reporte",
+          "D92 Pol\u00edtica de pago a proveedores: Pol\u00edtica -> Ventas",
+          "D94 Pol\u00edtica de aprobaci\u00f3n de promociones: Pol\u00edtica -> Manual",
+          "D98 Pol\u00edtica de descuentos y cambio de precios: Pol\u00edtica -> Manual",
+          "D99 Pol\u00edtica de cambio de turno: Pol\u00edtica -> Manual",
+          "D100 Pol\u00edtica de control de mermas y desperdicios: Pol\u00edtica -> Reporte",
+          "D102 Pol\u00edtica de revisi\u00f3n diaria de excepciones y cortes de caja: Pol\u00edtica -> Manual"
+        ]
+      },
+      "logreg_embeddings": {
+        "accuracy": 0.814,
+        "macro_precision": 0.814,
+        "macro_recall": 0.816,
+        "macro_f1": 0.812,
+        "per_class": {
+          "Inventario": {
+            "precision": 0.818,
+            "recall": 0.9,
+            "f1-score": 0.857
+          },
+          "Manual": {
+            "precision": 0.773,
+            "recall": 0.81,
+            "f1-score": 0.791
+          },
+          "Pol\u00edtica": {
+            "precision": 0.812,
+            "recall": 0.619,
+            "f1-score": 0.703
+          },
+          "Reporte": {
+            "precision": 0.762,
+            "recall": 0.8,
+            "f1-score": 0.78
+          },
+          "Ventas": {
+            "precision": 0.905,
+            "recall": 0.95,
+            "f1-score": 0.927
+          }
+        },
+        "confusion": [
+          [
             18,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            2,
+            17,
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            3,
+            13,
+            4,
             1
           ],
           [
             2,
+            0,
+            1,
+            16,
+            1
+          ],
+          [
+            0,
             1,
             0,
+            0,
+            19
+          ]
+        ],
+        "errors": [
+          "D10 Manual del due\u00f1o - respaldos y restauraci\u00f3n: Manual -> Pol\u00edtica",
+          "D15 Reporte de productos m\u00e1s vendidos: Reporte -> Inventario",
+          "D17 Reporte de cancelaciones y bit\u00e1cora de auditor\u00eda: Reporte -> Pol\u00edtica",
+          "D27 Reembolso de un producto devuelto: Ventas -> Manual",
+          "D34 Registro de despiece de cuarto de res: Inventario -> Manual",
+          "D41 Pol\u00edtica de manejo de efectivo: Pol\u00edtica -> Manual",
+          "D44 Pol\u00edtica de cr\u00e9dito a clientes: Pol\u00edtica -> Reporte",
+          "D46 Pol\u00edtica de devoluciones y reembolsos: Pol\u00edtica -> Reporte",
+          "D54 Manual del carnicero - cortar y porcionar carne de res: Manual -> Inventario",
+          "D57 Manual - recibir entregas de proveedores: Manual -> Inventario",
+          "D59 Gu\u00eda de capacitaci\u00f3n para cajeros nuevos: Manual -> Pol\u00edtica",
+          "D63 Reporte de desempe\u00f1o de proveedores: Reporte -> Inventario",
+          "D70 Reporte de cobranza de cr\u00e9dito a clientes: Reporte -> Ventas",
+          "D89 Lista de proveedores y contactos: Inventario -> Reporte",
+          "D92 Pol\u00edtica de pago a proveedores: Pol\u00edtica -> Ventas",
+          "D94 Pol\u00edtica de aprobaci\u00f3n de promociones: Pol\u00edtica -> Manual",
+          "D97 Pol\u00edtica de mantenimiento de equipos: Pol\u00edtica -> Manual",
+          "D100 Pol\u00edtica de control de mermas y desperdicios: Pol\u00edtica -> Reporte",
+          "D102 Pol\u00edtica de revisi\u00f3n diaria de excepciones y cortes de caja: Pol\u00edtica -> Reporte"
+        ]
+      },
+      "logreg_hybrid": {
+        "accuracy": 0.824,
+        "macro_precision": 0.829,
+        "macro_recall": 0.826,
+        "macro_f1": 0.822,
+        "per_class": {
+          "Inventario": {
+            "precision": 0.792,
+            "recall": 0.95,
+            "f1-score": 0.864
+          },
+          "Manual": {
+            "precision": 0.739,
+            "recall": 0.81,
+            "f1-score": 0.773
+          },
+          "Pol\u00edtica": {
+            "precision": 0.812,
+            "recall": 0.619,
+            "f1-score": 0.703
+          },
+          "Reporte": {
+            "precision": 0.857,
+            "recall": 0.9,
+            "f1-score": 0.878
+          },
+          "Ventas": {
+            "precision": 0.944,
+            "recall": 0.85,
+            "f1-score": 0.895
+          }
+        },
+        "confusion": [
+          [
+            19,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            17,
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            4,
+            13,
+            3,
+            1
+          ],
+          [
+            2,
+            0,
+            0,
+            18,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
             0,
             17
           ]
         ],
         "errors": [
-          "D03 Cashier manual - customer credit F6: Manual -> Sales",
-          "D10 Owner manual - backups and restore: Manual -> Policy",
-          "D27 Refund of a returned product: Sales -> Manual",
-          "D29 Price list for customers - weekly offers: Sales -> Inventory",
-          "D46 Returns and refunds policy: Policy -> Sales",
-          "D49 Pricing policy and margins: Policy -> Inventory",
-          "D53 Owner manual - creating a new user: Manual -> Policy",
-          "D54 Butcher manual - cutting and portioning beef: Manual -> Inventory",
-          "D57 Manual - receiving supplier deliveries: Manual -> Inventory",
-          "D59 Training guide for new cashiers: Manual -> Policy",
-          "D63 Supplier performance report: Report -> Inventory",
-          "D70 Customer credit collection report: Report -> Sales",
-          "D75 Quote for a party order: Sales -> Inventory",
-          "D90 Stock adjustment after audit: Inventory -> Policy",
-          "D92 Supplier payment policy: Policy -> Sales",
-          "D99 Shift change policy: Policy -> Manual",
-          "D100 Waste and shrinkage control policy: Policy -> Report"
+          "D10 Manual del due\u00f1o - respaldos y restauraci\u00f3n: Manual -> Pol\u00edtica",
+          "D15 Reporte de productos m\u00e1s vendidos: Reporte -> Inventario",
+          "D27 Reembolso de un producto devuelto: Ventas -> Manual",
+          "D29 Lista de precios para clientes - ofertas de la semana: Ventas -> Pol\u00edtica",
+          "D34 Registro de despiece de cuarto de res: Inventario -> Manual",
+          "D41 Pol\u00edtica de manejo de efectivo: Pol\u00edtica -> Manual",
+          "D44 Pol\u00edtica de cr\u00e9dito a clientes: Pol\u00edtica -> Reporte",
+          "D54 Manual del carnicero - cortar y porcionar carne de res: Manual -> Inventario",
+          "D57 Manual - recibir entregas de proveedores: Manual -> Inventario",
+          "D59 Gu\u00eda de capacitaci\u00f3n para cajeros nuevos: Manual -> Pol\u00edtica",
+          "D63 Reporte de desempe\u00f1o de proveedores: Reporte -> Inventario",
+          "D75 Cotizaci\u00f3n para pedido de fiesta: Ventas -> Inventario",
+          "D92 Pol\u00edtica de pago a proveedores: Pol\u00edtica -> Ventas",
+          "D94 Pol\u00edtica de aprobaci\u00f3n de promociones: Pol\u00edtica -> Manual",
+          "D97 Pol\u00edtica de mantenimiento de equipos: Pol\u00edtica -> Manual",
+          "D99 Pol\u00edtica de cambio de turno: Pol\u00edtica -> Manual",
+          "D100 Pol\u00edtica de control de mermas y desperdicios: Pol\u00edtica -> Reporte",
+          "D102 Pol\u00edtica de revisi\u00f3n diaria de excepciones y cortes de caja: Pol\u00edtica -> Reporte"
         ]
       }
     },
-    "best": "logreg_embeddings",
-    "in_app": "logreg_embeddings"
+    "best": "logreg_hybrid",
+    "in_app": "logreg_hybrid"
   },
   "retrieval": {
     "tfidf": {
       "keyword": {
         "n": 13,
-        "P@3": 0.821,
-        "R@5": 0.816,
+        "P@3": 0.872,
+        "R@5": 0.797,
         "MRR": 1.0
       },
       "paraphrase": {
         "n": 13,
-        "P@3": 0.231,
-        "R@5": 0.308,
-        "MRR": 0.521
+        "P@3": 0.308,
+        "R@5": 0.378,
+        "MRR": 0.516
       }
     },
     "embeddings": {
       "keyword": {
         "n": 13,
-        "P@3": 0.923,
-        "R@5": 0.836,
-        "MRR": 0.923
+        "P@3": 0.872,
+        "R@5": 0.732,
+        "MRR": 1.0
       },
       "paraphrase": {
         "n": 13,
-        "P@3": 0.513,
-        "R@5": 0.551,
-        "MRR": 0.764
+        "P@3": 0.462,
+        "R@5": 0.5,
+        "MRR": 0.774
       }
     },
     "hybrid": {
       "keyword": {
         "n": 13,
-        "P@3": 0.923,
-        "R@5": 0.84,
+        "P@3": 0.897,
+        "R@5": 0.786,
         "MRR": 1.0
       },
       "paraphrase": {
         "n": 13,
-        "P@3": 0.487,
-        "R@5": 0.532,
-        "MRR": 0.763
-      }
-    },
-    "minilm (offline comparison)": {
-      "keyword": {
-        "n": 13,
-        "P@3": 0.923,
-        "R@5": 0.836,
-        "MRR": 0.962
-      },
-      "paraphrase": {
-        "n": 13,
-        "P@3": 0.513,
-        "R@5": 0.641,
-        "MRR": 0.86
+        "P@3": 0.436,
+        "R@5": 0.442,
+        "MRR": 0.72
       }
     }
   },
   "recommendation": {
     "related_docs": {
       "embeddings (in app)": {
-        "P@5": 0.5,
-        "nDCG@5": 0.672
+        "P@5": 0.487,
+        "nDCG@5": 0.638
       },
       "tfidf": {
-        "P@5": 0.487,
-        "nDCG@5": 0.684
+        "P@5": 0.525,
+        "nDCG@5": 0.706
       },
       "random same category": {
         "P@5": 0.062,
@@ -464,8 +449,8 @@
     "n_seeds": 16,
     "session_context": {
       "n": 7,
-      "P@5 query alone": 0.4,
-      "P@5 with query history": 0.514
+      "P@5 query alone": 0.457,
+      "P@5 with query history": 0.543
     }
   },
   "chatbot": {
@@ -474,122 +459,122 @@
     "source_hit@3": 1.0,
     "fact_in_answer": 0.944,
     "out_of_scope_refused": "3/3",
-    "threshold": 0.18,
-    "min_in_scope_score": 0.285,
-    "max_out_of_scope_score": 0.119,
+    "threshold": 0.19,
+    "min_in_scope_score": 0.2,
+    "max_out_of_scope_score": 0.17,
     "detail": [
       {
-        "q": "What key do I press to sell on credit?",
+        "q": "\u00bfQu\u00e9 tecla presiono para vender a cr\u00e9dito?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "To sell on credit first choose the customer with F6, then charge with F4 credit. [D03] The system does not let a sale go over the customer's credit limit. [D03] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16]"
+        "answer": "Para vender a cr\u00e9dito primero elige al cliente con F6, luego cobra con F4 cr\u00e9dito. [D03] El sistema no deja que una venta pase del l\u00edmite de cr\u00e9dito del cliente. [D03] Reglas para otorgar cr\u00e9dito a clientes. [D44]"
       },
       {
-        "q": "What is the maximum credit limit for a customer?",
+        "q": "\u00bfCu\u00e1l es el l\u00edmite m\u00e1ximo de cr\u00e9dito para un cliente?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "The maximum limit is 1500 pesos. [D44] Lists each customer, the current balance, the credit limit and the days since the last payment. [D16] The system does not let a sale go over the customer's credit limit. [D03]"
+        "answer": "El l\u00edmite m\u00e1ximo es 1500 pesos. [D44] El sistema no deja que una venta pase del l\u00edmite de cr\u00e9dito del cliente. [D03] Muestra cada cliente, el saldo actual, el l\u00edmite de cr\u00e9dito y los d\u00edas desde el \u00faltimo pago. [D16]"
       },
       {
-        "q": "What is the maximum cash allowed in the drawer?",
+        "q": "\u00bfCu\u00e1l es el m\u00e1ximo de efectivo permitido en la caja?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "The cash in the drawer must not exceed 3000 pesos, the excess is withdrawn with F8 option 1 and authorized by the manager. [D41] Every day the owner or the manager reviews Panel then Exceptions: cancellations, removed items, discounts and drawer opened without a sale. [D102] At shift change the leaving cashier does the partial cut and counts the drawer with the next cashier. [D99]"
+        "answer": "El efectivo en la caja no debe exceder 3000 pesos, el excedente se retira con F8 opci\u00f3n 1 y lo autoriza el gerente. [D41] Cuenta el efectivo sin ver cu\u00e1nto deber\u00eda haber y escr\u00edbelo. [D04] Para cobrar presiona Enter con la caja de entrada vac\u00eda y elige F1 efectivo, F2 tarjeta, F3 mixto o F4 cr\u00e9dito. [D02]"
       },
       {
-        "q": "How long do customers have to return a product?",
+        "q": "\u00bfCu\u00e1nto tiempo tienen los clientes para devolver un producto?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Return of a product by a customer. [D27] Customers can return products within 24 hours with their ticket. [D46] Customer returned a milk carton expired yesterday. [D76]"
+        "answer": "Los clientes pueden devolver productos dentro de 24 horas con su ticket. [D46] Las devoluciones se hacen desde las ventas del turno F7 buscando el folio del ticket, eligiendo cu\u00e1ntos art\u00edculos y c\u00f3mo se reembolsa el dinero, y todo reembolso requiere la autorizaci\u00f3n del gerente. [D46] Devoluci\u00f3n de un producto por un cliente. [D27]"
       },
       {
-        "q": "At what temperature must meat be kept?",
+        "q": "\u00bfA qu\u00e9 temperatura se debe mantener la carne?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Meat is kept below 4 degrees Celsius and the refrigerator temperature is recorded twice a day. [D45] Meat and dairy must stay below 4 degrees. [D95] Received 2 beef quarters, 118 kg total, temperature 3 degrees. [D85]"
+        "answer": "La temperatura de la c\u00e1mara fr\u00eda se anota dos veces al d\u00eda. [D95] Si la temperatura est\u00e1 m\u00e1s alta por m\u00e1s de una hora se revisan los productos y pueden desecharse. [D95] La carne se mantiene por debajo de 4 grados Celsius y la temperatura del refrigerador se registra dos veces al d\u00eda. [D45]"
       },
       {
-        "q": "What time does the store open?",
+        "q": "\u00bfA qu\u00e9 hora abre la tienda?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Rules for opening and closing the store. [D48] The store opens at 7 am and closes at 10 pm. [D48] The server is inside the store and the registers connect through the local network. [D50]"
+        "answer": "Reglas para abrir y cerrar la tienda. [D48] La tienda abre a las 7 am y cierra a las 10 pm. [D48] Los empleados usan la camisa de la tienda y el gafete. [D93]"
       },
       {
-        "q": "How long are old backups kept?",
+        "q": "\u00bfCu\u00e1nto tiempo se guardan los respaldos viejos?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Old backups are kept for 30 days. [D47] Every month check the date of the last backup and do a restore test on another computer: a backup that was never restored does not count. [D10] The backup key was shown only once during installation; keep it written on paper outside the store. [D10]"
+        "answer": "Los respaldos viejos se guardan por 30 d\u00edas. [D47] La llave del respaldo se guarda en papel fuera de la tienda y nunca se comparte por tel\u00e9fono ni por chat. [D47] Cada mes revisa la fecha del \u00faltimo respaldo y haz una prueba de restauraci\u00f3n en otra computadora: un respaldo que nunca se restaur\u00f3 no cuenta. [D10]"
       },
       {
-        "q": "Which key opens the cashier menu for the cash cut?",
+        "q": "\u00bfQu\u00e9 tecla abre el men\u00fa de cajero para el corte de caja?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Open the register menu with F8 and choose option 5, cash cut. [D04] The shift closes and the register is free for the next cashier. [D04] Choose your name with the arrow keys and Enter, type your 6 digit PIN, then count the opening cash fund in the drawer and type it. [D01]"
+        "answer": "Abre el men\u00fa de caja con F8 y elige la opci\u00f3n 5, corte de caja. [D04] Al cerrar, cada caja debe hacer su corte de caja antes de salir. [D48] Al cambio de turno el cajero que sale hace el corte parcial y cuenta el caj\u00f3n con el siguiente cajero. [D99]"
       },
       {
-        "q": "What happens after several failed PIN attempts?",
+        "q": "\u00bfQu\u00e9 pasa despu\u00e9s de varios intentos fallidos de PIN?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "After 5 wrong PIN attempts the user is locked for 15 minutes or until the owner unlocks it. [D43] When you finish press Back to register; the cashier logs in again with their PIN and the ticket in progress is still there. [D101] If the printer fails the sale is saved anyway, reprint it with F7. [D09]"
+        "answer": "Cada empleado tiene un PIN personal de 6 a 8 d\u00edgitos, nunca 123456 ni 111111, y no debe compartirlo: todo lo que se haga con \u00e9l queda a su nombre. [D43] Despu\u00e9s de 5 intentos fallidos de PIN el usuario se bloquea por 15 minutos o hasta que el due\u00f1o lo desbloquee. [D43] Cuando termines presiona Volver a caja; el cajero vuelve a entrar con su PIN y el ticket en curso sigue ah\u00ed. [D101]"
       },
       {
-        "q": "What percentage of the beef quarter is sellable meat?",
+        "q": "\u00bfQu\u00e9 porcentaje de la canal de res es carne vendible?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "The beef quarter yielded 72 percent sellable meat, 18 percent bones and fat and 10 percent loss. [D67] The 45 kg quarter produced steak, ground beef, ribs and bones. [D34] Stock of beef quarter increased in the system. [D85]"
+        "answer": "La cuarta de res rindi\u00f3 72 por ciento de carne vendible, 18 por ciento de huesos y grasa y 10 por ciento de merma. [D67] La carne molida es la que m\u00e1s se vende. [D67] Se aument\u00f3 el stock de canal de res en el sistema. [D85]"
       },
       {
-        "q": "When are suppliers paid?",
+        "q": "\u00bfCu\u00e1ndo se les paga a los proveedores?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Suppliers are paid by transfer on Fridays. [D92] Cash payments to suppliers are not allowed above 2,000 pesos. [D92] Sale paid with mixed payment. [D26]"
+        "answer": "A los proveedores se les paga por transferencia los viernes. [D92] No se permiten pagos en efectivo a proveedores arriba de 2,000 pesos. [D92] Cat\u00e1logo del proveedor de l\u00e1cteos con c\u00f3digos de producto, presentaci\u00f3n, costo unitario y d\u00edas de entrega. [D36]"
       },
       {
-        "q": "What is the minimum margin for a promotion?",
+        "q": "\u00bfCu\u00e1l es el margen m\u00ednimo para una promoci\u00f3n?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Each promotion needs start and end dates and a minimum margin of 8 percent. [D94] Sale price is calculated from the cost plus a minimum margin by department. [D49] Monthly report with revenue, cost of goods sold and gross margin by department. [D12]"
+        "answer": "Cada promoci\u00f3n necesita fecha de inicio y fin y un margen m\u00ednimo de 8 por ciento. [D94] El precio de venta se calcula a partir del costo m\u00e1s un margen m\u00ednimo por departamento. [D49] Si hay que aplicar un descuento a mano, presiona F5, escribe el monto y el motivo, y el gerente lo autoriza. [D52]"
       },
       {
-        "q": "How do I charge a card if there is no internet?",
+        "q": "\u00bfC\u00f3mo cobro con tarjeta si no hay internet?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "How to charge with card using the Point terminal of your register. [D08] If there is no internet use charge manually: charge on the terminal and type the authorization number. [D08] The card payment was declined by the terminal. [D77]"
+        "answer": "C\u00f3mo cobrar con tarjeta usando la terminal Point de tu caja. [D08] Esc cancela el cobro. [D08] Si no hay internet usa el cobro manual: cobra en la terminal y escribe el n\u00famero de autorizaci\u00f3n. [D08]"
       },
       {
-        "q": "Until when can a customer ask for an invoice?",
+        "q": "\u00bfHasta cu\u00e1ndo puede pedir factura un cliente?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Customers can ask for an invoice within the same month of the purchase. [D96] Request from a customer to receive an electronic invoice for the purchase on ticket 000930. [D23] Global invoice of the month for sales without individual invoice. [D78]"
+        "answer": "Solicitud de un cliente para recibir factura electr\u00f3nica de la compra del ticket 000930. [D23] Los clientes pueden pedir factura dentro del mismo mes de la compra. [D96] Factura global del mes de las ventas sin factura individual. [D78]"
       },
       {
-        "q": "Which products are on the low stock list?",
+        "q": "\u00bfQu\u00e9 productos est\u00e1n en la lista de stock bajo?",
         "source_in_top3": true,
         "fact_in_answer": false,
-        "answer": "List of products below the minimum stock level. [D35] For each product it shows current stock, minimum level and suggested quantity to buy. [D35] When stock falls below the minimum the system adds the product to the low stock alert. [D84]"
+        "answer": "Lista de productos por debajo del nivel m\u00ednimo de inventario. [D35] Registro de productos nuevos en el cat\u00e1logo. [D39] Cuando el stock baja del m\u00ednimo el sistema agrega el producto a la alerta de stock bajo. [D84]"
       },
       {
-        "q": "How do I open the manager panel from the register?",
+        "q": "\u00bfC\u00f3mo abro el panel de gerente desde la caja?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "In the register press F9, choose your name and type your PIN: the manager panel opens. [D101] If the panel is not used for 5 minutes it returns to the register by itself. [D101] Open the admin, go to Users and add one user per person with the role cashier, butcher or manager. [D53]"
+        "answer": "En la caja presiona F9, elige tu nombre y escribe tu PIN: se abre el panel del gerente. [D101] Los gerentes tambi\u00e9n necesitan una contrase\u00f1a de 15 o m\u00e1s caracteres para entrar al panel. [D53] El due\u00f1o puede ver cualquier periodo con m\u00e1rgenes; el gerente ve el d\u00eda de hoy. [D58]"
       },
       {
-        "q": "How often are backups made?",
+        "q": "\u00bfCada cu\u00e1nto se hacen los respaldos?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "Backups run by themselves every hour to the USB disk labelled RESPALDO and, if configured, to cloud storage. [D10] Every month check the date of the last backup and do a restore test on another computer: a backup that was never restored does not count. [D10] Old backups are kept for 30 days. [D47]"
+        "answer": "Los respaldos se hacen solos cada hora al disco USB etiquetado RESPALDO y, si est\u00e1 configurado, al almacenamiento en la nube. [D10] Los pagos se esperan cada dos semanas. [D44] Las devoluciones se hacen desde las ventas del turno F7 buscando el folio del ticket, eligiendo cu\u00e1ntos art\u00edculos y c\u00f3mo se reembolsa el dinero, y todo reembolso requiere la autorizaci\u00f3n del gerente. [D46]"
       },
       {
-        "q": "How do I reprint a ticket?",
+        "q": "\u00bfC\u00f3mo reimprimo un ticket?",
         "source_in_top3": true,
         "fact_in_answer": true,
-        "answer": "If the customer asks for a copy press F7 shift sales, select the ticket and choose reprint. [D56] The reprint is recorded. [D56] The ticket shows the authorization number and the last four digits of the card. [D22]"
+        "answer": "Si el cliente pide una copia presiona F7 ventas del turno, selecciona el ticket y elige reimprimir. [D56] Ticket 001377 vendido cuando no hab\u00eda internet. [D80] El ticket se sincroniz\u00f3 al servidor a las 13:05. [D80]"
       }
     ]
   },
   "latency": {
     "search_ms": 0.4,
-    "chat_extractive_ms": 0.8
+    "chat_extractive_ms": 1.9
   }
 }

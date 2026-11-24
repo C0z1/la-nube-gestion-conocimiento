@@ -1,8 +1,8 @@
-streamlit>=1.40
+streamlit>=1.50
 scikit-learn
 numpy
 pandas
-wordllama
+model2vec
 rdflib
 networkx
 pyvis
