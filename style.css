@@ -60,3 +60,6 @@ details.trace td { padding: 0.15rem 0.9rem 0.15rem 0; border: none; }
 [data-testid="stMetricValue"] { font-family: var(--display); color: var(--navy); }
 [data-testid="stSidebar"] { background: #EEF1F4; border-right: 1px solid var(--line); }
 .stButton button { border-radius: 6px; font-weight: 500; }
+
+/* ---- velocidad de la respuesta ---- */
+.speed { font: 500 0.8rem var(--mono); color: var(--orange); margin: 0.25rem 0 0.5rem; }

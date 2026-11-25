@@ -6,3 +6,4 @@ model2vec
 rdflib
 networkx
 pyvis
+segno

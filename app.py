@@ -22,6 +22,10 @@ ss = st.session_state
 ss.setdefault("queries", [])   # búsquedas y preguntas, la más reciente al final (para recomendaciones)
 ss.setdefault("viewed", [])    # documentos abiertos
 ss.setdefault("messages", [])  # historial del chat
+ss.setdefault("stats", {"ok": 0, "trap": 0})  # marcador de la prueba de esta sesión
+# ?q=... en el enlace hace esa pregunta al abrir la app, una sola vez
+if (qp := st.query_params.get("q")) and not ss.get("qp_done"):
+    ss.qp_done, ss.ask = True, qp
 
 M = json.load(open(kb.ROOT / "outputs" / "metrics.json", encoding="utf-8"))
 st.html(f"<style>{(kb.ROOT / 'style.css').read_text(encoding='utf-8')}</style>")
@@ -34,6 +38,8 @@ EDGES = [("q", "d1", 0), ("q", "d2", 0), ("q", "d3", 0), ("d1", "t1", 1), ("d2",
 ASK_EXAMPLES = ["¿Qué tecla presiono para vender a crédito?", "¿Qué hago si se cae el internet?",
                 "¿A qué temperatura se guarda la carne?"]
 FAIL_EXAMPLE = "Receta de pastel de chocolate"
+APP_URL = "https://la-nube-gestion-conocimiento-oh27aiwzetkmeuk37gfncd.streamlit.app"
+MIN_PER_QUESTION = 3  # estimación: lo que tarda una duda resuelta por la encargada (ver presentation/simulacion.py)
 
 
 def level(score):
@@ -100,6 +106,19 @@ def doc_row(d, score, key):
         open_doc(d["id"])
 
 
+def typed(text):
+    """Efecto de escritura: la respuesta aparece palabra por palabra."""
+    for w in text.split(" "):
+        yield w + " "
+        time.sleep(0.025)
+
+
+@st.cache_data
+def qr_uri():
+    import segno
+    return segno.make(APP_URL, error="m").svg_data_uri(scale=6, dark="#13233A", light="#F6F7F4", border=2)
+
+
 def example_buttons(examples, target, prefix):
     """Botones que llenan la pregunta: el profesor puede probar sin escribir."""
     for c, q in zip(st.columns(len(examples)), examples):
@@ -117,6 +136,7 @@ with t_chat:
         key = st.secrets.get("DEEPSEEK_API_KEY")
     except Exception:  # sin archivo de secretos en local
         key = None
+    score = st.container()  # el marcador se llena al final, ya con la pregunta de esta ejecución
     st.markdown("Escribe una pregunta como se la harías a un compañero con experiencia, o toca un ejemplo. "
                 "La respuesta sale **solo** de los documentos de la tienda y marca la fuente, por ejemplo **[D04]**.")
     example_buttons(ASK_EXAMPLES + ["🧪 " + FAIL_EXAMPLE], "ask", "a")
@@ -133,25 +153,41 @@ with t_chat:
         t0 = time.perf_counter()
         answer, hits, mode = kb.chat(prompt, key)
         ms = (time.perf_counter() - t0) * 1000
-        if answer == kb.NOT_FOUND_MSG:
-            reply = (f"🤔 **{answer}** Esto es a propósito: prefiere decir que no sabe antes que inventar. "
-                     "Prueba con algo de la tienda: caja, cobros, crédito a clientes, carnicería, inventario, respaldos…")
+        took = "menos de 1 ms" if ms < 1 else f"{ms:.0f} ms"
+        trap = answer == kb.NOT_FOUND_MSG
+        ss.stats["trap" if trap else "ok"] += 1
+        if trap:
+            head = (f"🛡️ **{answer}** Esto es a propósito: prefiere decir que no sabe antes que inventar. "
+                    "Prueba con algo de la tienda: caja, cobros, crédito a clientes, carnicería, inventario, respaldos…")
+            rest = ""
+            st.toast("🛡️ Trampa detectada: no inventó una respuesta")
         else:
             srcs = "".join(f"<li><code>{d['id']}</code> {html.escape(d['title'])}</li>"
                            for d in {d['id']: d for d, _ in hits if f"[{d['id']}]" in answer}.values())
-            reply = f"{answer}\n\n<div><b>Fuentes</b><ul>{srcs}</ul></div>"
+            head = answer
+            rest = (f"<p class='speed'>⚡ {took} revisando {len(kb.DOCS)} documentos · "
+                    f"preguntarle a la encargada toma ~{MIN_PER_QUESTION} min</p>"
+                    f"<div><b>Fuentes</b><ul>{srcs}</ul></div>")
+            st.toast(f"✅ Respuesta con fuente en {took}")
         rows = "".join(f"<tr><td>{d['id']}</td><td>{level(s)} ({s:.2f})</td><td>{html.escape(d['title'])}</td></tr>"
                        for d, s in hits)
         how = "redactada por IA con esos documentos" if mode == "llm" else "armada con las frases más cercanas a tu pregunta"
-        reply += (f"\n\n<details class='trace'><summary>¿Cómo llegó a esta respuesta?</summary>"
+        rest += (f"\n\n<details class='trace'><summary>¿Cómo llegó a esta respuesta?</summary>"
                   f"<p>Buscó los 3 documentos más parecidos a tu pregunta (por palabras y por significado) "
-                  f"y la respuesta fue {how}. Tardó {ms:.0f} ms. Si la coincidencia más alta es menor a "
+                  f"y la respuesta fue {how}. Tardó {took}. Si la coincidencia más alta es menor a "
                   f"{kb.NOT_FOUND}, responde que no lo encontró.</p><table>{rows}</table></details>")
-        ss.messages.append({"role": "assistant", "content": reply})
+        ss.messages.append({"role": "assistant", "content": f"{head}\n\n{rest}"})
         with st.chat_message("assistant"):
-            st.markdown(reply, unsafe_allow_html=True)
+            st.write_stream(typed(head))
+            st.markdown(rest, unsafe_allow_html=True)
+    with score:
+        k1, k2, k3 = st.columns(3)
+        k1.metric("Preguntas respondidas", ss.stats["ok"])
+        k2.metric("Trampas detectadas", ss.stats["trap"], help="Preguntas fuera de tema que rechazó en vez de inventar")
+        k3.metric("Tiempo ahorrado a la encargada", f"{ss.stats['ok'] * MIN_PER_QUESTION} min",
+                  help=f"Estimación: ~{MIN_PER_QUESTION} min por cada duda que ya no le preguntan")
     if ss.messages and st.button("Borrar conversación"):
-        ss.messages = []
+        ss.messages, ss.stats = [], {"ok": 0, "trap": 0}
         st.rerun()
 
 # ---------- buscar ----------
@@ -254,6 +290,9 @@ with t_tech:
 
 # ---------- barra lateral: al final para ver las búsquedas de esta ejecución ----------
 with st.sidebar:
+    st.subheader("📱 Pruébala en tu celular")
+    st.html(f'<img src="{qr_uri()}" alt="Código QR con el enlace de la app" style="width:100%;max-width:200px;border-radius:8px">')
+    st.caption("Escanea el código, pregunta lo que quieras e intenta engañarla.")
     st.subheader("Te puede interesar")
     recs = kb.recommend(ss.queries, ss.viewed, k=5)
     if recs:
@@ -266,5 +305,5 @@ with st.sidebar:
     if ss.queries:
         st.caption("Lo último que buscaste: " + " · ".join(f"“{q}”" for q in ss.queries[-5:]))
         if st.button("Empezar de cero"):
-            ss.queries, ss.viewed, ss.messages = [], [], []
+            ss.queries, ss.viewed, ss.messages, ss.stats = [], [], [], {"ok": 0, "trap": 0}
             st.rerun()
